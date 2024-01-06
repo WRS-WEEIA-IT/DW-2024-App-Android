@@ -1,0 +1,37 @@
+# Standard Android.gitignore entries
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+
+# Android Studio specific files
+.idea
+*.hprof
+local.properties
+
+# Build and output files
+/out
+
+# Gradle configuration files
+/gradle
+/gradlew
+/gradlew.bat
+/gradle-wrapper.properties
+/gradle-wrapper.jar
+
+# Kotlin log files
+*.log
+
+# Firebase configuration files
+/google-services.json
+/firebase
