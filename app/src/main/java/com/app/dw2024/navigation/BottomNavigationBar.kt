@@ -37,8 +37,7 @@ fun BottomNavigationBar(
     BottomNavigation(
         modifier = Modifier
             .height(70.dp)
-            .fillMaxWidth()
-        ,
+            .fillMaxWidth(),
         backgroundColor = DarkBlack
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()

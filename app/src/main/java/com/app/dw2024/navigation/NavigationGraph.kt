@@ -1,5 +1,6 @@
 package com.app.dw2024.navigation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -11,6 +12,7 @@ import com.app.dw2024.events.EventsScreen
 import com.app.dw2024.home.HomeScreen
 import com.app.dw2024.info.InfoScreen
 import com.app.dw2024.tasks.TasksScreen
+import com.app.dw2024.ui.theme.DarkBlack
 
 @Composable
 fun NavigationGraph(
@@ -18,6 +20,7 @@ fun NavigationGraph(
     paddingValues: PaddingValues
 ) {
     NavHost(
+        modifier = Modifier.background(DarkBlack),
         navController = navController,
         startDestination = BottomNavItem.Home.route
     ) {
