@@ -54,9 +54,7 @@ fun EventCard(
         onClick = onClick
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Blue)
+            modifier = Modifier.fillMaxSize()
         ) {
             Image(
                 modifier = Modifier.fillMaxWidth(),
