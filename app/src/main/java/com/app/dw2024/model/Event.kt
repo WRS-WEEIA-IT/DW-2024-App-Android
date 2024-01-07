@@ -10,5 +10,5 @@ class Event(
     val timeEnd: Timestamp = Timestamp.now(),
     val timeStart: Timestamp = Timestamp.now(),
     val title: String = "",
-    val type: String = ""
+    var type: String = ""
 )
