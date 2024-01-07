@@ -20,3 +20,10 @@ val CardPurpleGradient = Brush.horizontalGradient(
     )
 )
 val BrightPurple = Color(0xFFB949FF)
+val PurpleGradient = Brush.horizontalGradient(
+    colors = listOf(
+        Color(0xFF3F125B),
+        Color(0xFF251F52)
+    )
+)
+
