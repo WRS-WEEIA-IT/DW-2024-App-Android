@@ -1,7 +1,9 @@
 package com.app.dw2024.di
 
 import com.app.dw2024.repository.impl.EventsRepositoryImpl
+import com.app.dw2024.repository.impl.TasksRepositoryImpl
 import com.app.dw2024.repository.interfaces.EventsRepository
+import com.app.dw2024.repository.interfaces.TasksRepository
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
@@ -25,5 +27,11 @@ object AppModule {
     @Singleton
     fun provideEventsRepository(db: FirebaseFirestore): EventsRepository {
         return EventsRepositoryImpl(db)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTasksRepository(db: FirebaseFirestore): TasksRepository {
+        return TasksRepositoryImpl(db)
     }
 }
