@@ -14,4 +14,6 @@
     <string name="you_earned_x_points">You\'ve earned %d points.</string>
     <string name="organizers">Organizers</string>
     <string name="partners">Partners</string>
+    <string name="all_events">All events</string>
+    <string name="all_tasks">All tasks</string>
 </resources>
