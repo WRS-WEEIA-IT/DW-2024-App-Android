@@ -3,4 +3,7 @@
     <string name="sign_up">Sign up</string>
     <string name="upcoming_events">Upcoming events</string>
     <string name="filter">Filter</string>
+    <string name="scan_qr_code_to_complete_task">Scan QR code to complete this task</string>
+    <string name="available_tasks">Available tasks</string>
+    <string name="you_gained_x_points">You gained %d points</string>
 </resources>

@@ -42,7 +42,7 @@ import com.example.dzienwydzialu2024.ui.theme.CardPurpleGradient
 @Composable
 fun TaskCard(
     modifier: Modifier = Modifier,
-    id: String,
+    id: Int,
     title: String,
     description: String,
     points: Int,
@@ -164,7 +164,7 @@ fun TaskCard(
 @Composable
 fun TaskCardPreview() {
     TaskCard(
-        id = "1",
+        id = 1,
         title = "Zrób zdjęcie z pracownikiem",
         description = "Zrób zdjęcie z pracownikiem i udostępnij je na Instagramie z hasztagiem #dzienwydzialu2024",
         points = 10,
