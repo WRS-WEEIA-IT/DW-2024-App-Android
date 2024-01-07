@@ -139,7 +139,7 @@ fun HomeScreen(
                     items(viewModel.state.tasks) { task ->
                         TaskCard(
                             modifier = Modifier.width(configuration.screenWidthDp.dp - 64.dp),
-                            id = task.id,
+                            id = task.taskNumber,
                             title = task.title,
                             description = task.description,
                             points = task.points,

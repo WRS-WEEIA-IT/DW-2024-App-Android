@@ -59,7 +59,7 @@ fun TasksScreen(
             content = {
                 items(viewModel.state.tasks) { task ->
                     TaskCard(
-                        id = task.id,
+                        id = task.taskNumber,
                         title = task.title,
                         description = task.description,
                         points = task.points,

@@ -1,12 +1,11 @@
 package com.app.dw2024.model
 
-import androidx.annotation.DrawableRes
-
 data class Task(
-    val id: Int,
-    val title: String,
-    val description: String,
-    val points: Int,
-    val isFinished: Boolean,
-    @DrawableRes val image: Int
+    val taskNumber: Int = 0,
+    val title: String = "",
+    val description: String = "",
+    val points: Int = 0,
+    val isFinished: Boolean = false,
+    val imageSource: String = "",
+    val qrCode: String = "",
 )
