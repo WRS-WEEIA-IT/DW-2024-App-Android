@@ -1,13 +1,14 @@
 package com.app.dw2024.model
 
+import com.google.firebase.Timestamp
 import java.time.LocalDateTime
 
 class Event(
-    val id: Int,
-    val type: String,
-    val title: String,
-    val place: String,
-    val startDate: LocalDateTime,
-    val endDate: LocalDateTime,
-    val image: String,
+    val hall: String = "",
+    val imageSource: String = "",
+    val partner: String = "",
+    val timeEnd: Timestamp = Timestamp.now(),
+    val timeStart: Timestamp = Timestamp.now(),
+    val title: String = "",
+    val type: String = ""
 )

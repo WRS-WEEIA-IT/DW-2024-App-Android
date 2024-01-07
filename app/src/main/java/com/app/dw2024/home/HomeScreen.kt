@@ -33,6 +33,7 @@ import com.app.dw2024.components.TaskCard
 import com.app.dw2024.events.dateFormatter
 import com.app.dw2024.events.timeFormatter
 import com.app.dw2024.ui.theme.DarkBlack
+import java.time.LocalDateTime
 
 @Composable
 fun HomeScreen(
@@ -85,17 +86,15 @@ fun HomeScreen(
             LazyRow(
                 content = {
                     items(viewModel.state.events) { event ->
-                        val date = event.startDate.format(dateFormatter)
-                        val time = "${event.startDate.format(timeFormatter)} - ${event.endDate.format(
-                            timeFormatter
-                        )}"
+                        val date = LocalDateTime.now().format(dateFormatter)
+                        val time = "${LocalDateTime.now().format(timeFormatter)} - ${LocalDateTime.now().format(timeFormatter)}"
                         EventCard(
                             modifier = Modifier.width(configuration.screenWidthDp.dp - 64.dp),
                             date = date,
                             time = time,
-                            eventType = event.type,
+                            eventType = "Lecture",
                             eventTitle = event.title,
-                            eventPlace = event.place
+                            eventPlace = event.hall
                         )
                     }
                 },
