@@ -3,14 +3,15 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.example.dzienwydzialu2024"
+    namespace = "com.app.dw2024"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.dzienwydzialu2024"
+        applicationId = "com.app.dw2024"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -61,6 +62,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("com.google.firebase:firebase-firestore:24.10.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
