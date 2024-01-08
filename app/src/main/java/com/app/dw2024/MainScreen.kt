@@ -10,6 +10,8 @@ import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Email
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -37,7 +39,7 @@ fun MainScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(DarkBlack)
-                    .padding(vertical = 16.dp),
+                    .padding(vertical = 16.dp, horizontal = 12.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
@@ -51,7 +53,7 @@ fun MainScreen(
                         onClick = { /*TODO*/ }
                     ) {
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_flag),
+                            imageVector = Icons.Outlined.Email,
                             contentDescription = null,
                             tint = Color.White
                         )

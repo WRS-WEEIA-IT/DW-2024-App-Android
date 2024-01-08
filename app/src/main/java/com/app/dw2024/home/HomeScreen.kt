@@ -46,8 +46,6 @@ fun HomeScreen(
 ) {
     val configuration = LocalConfiguration.current
 
-    Log.d("LOGCAT", "HomeScreen")
-
     LaunchedEffect(key1 = true) {
         viewModel.refresh()
     }
