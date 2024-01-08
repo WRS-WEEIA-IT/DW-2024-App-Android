@@ -52,10 +52,15 @@ class UserRepositoryImpl @Inject constructor(
         return user
     }
 
-    override suspend fun updateUserPoints(userId: Int, points: Int) {
+    override suspend fun incrementUserPoints(points: Int) {
+        val currentPoints = getUserInfo()?.points ?: 0
         db.collection("users")
-            .document(userId.toString())
-            .update("points", points)
+            .document(getUserId().toString())
+            .update("points", currentPoints + points)
+            .await()
+        db.collection("users")
+            .document(getUserId().toString())
+            .update("time", Timestamp.now())
             .await()
     }
 }

@@ -37,8 +37,12 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTasksRepository(db: FirebaseFirestore): TasksRepository {
-        return TasksRepositoryImpl(db)
+    fun provideTasksRepository(
+        userRepository: UserRepository,
+        db: FirebaseFirestore,
+        sharedPreferences: SharedPreferences
+    ): TasksRepository {
+        return TasksRepositoryImpl(userRepository, db, sharedPreferences)
     }
 
     @Provides
