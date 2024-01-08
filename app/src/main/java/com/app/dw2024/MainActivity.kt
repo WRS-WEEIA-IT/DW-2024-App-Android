@@ -21,6 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
@@ -76,8 +77,8 @@ class MainActivity : ComponentActivity() {
                                 isDialogVisible = false
                                 openAppSettings()
                             },
-                            title = "Błąd",
-                            description = "Potrzebujesz dostępu do kamery, aby móc skanować kod QR. Przejdź do ustawień aplikacji i włącz dostęp do kamery.",
+                            title = stringResource(id = R.string.required_camera_access),
+                            description = stringResource(id = R.string.camera_access_is_required_to_scan_qr_code),
                             confirmText = "OK"
                         )
                     }

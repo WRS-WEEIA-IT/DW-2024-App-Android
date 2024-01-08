@@ -26,11 +26,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.app.dw2024.ui.theme.DarkBlack
 import com.app.dw2024.ui.theme.PurpleGradient
 
 @Composable
 fun CustomAlertDialog(
-    modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
     onConfirm: () -> Unit,
     title: String,
@@ -43,18 +43,18 @@ fun CustomAlertDialog(
         },
         properties = DialogProperties(
             usePlatformDefaultWidth = false,
-            dismissOnBackPress = false,
-            dismissOnClickOutside = false
+            dismissOnBackPress = true,
+            dismissOnClickOutside = true
         )
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .clip(RoundedCornerShape(15.dp))
-                .background(PurpleGradient)
+                .background(DarkBlack.copy(alpha = 0.9f))
                 .border(
-                    width = 1.dp,
-                    color = Color.Magenta,
+                    width = 1.5.dp,
+                    brush = PurpleGradient,
                     shape = RoundedCornerShape(15.dp)
                 )
                 .padding(16.dp),
@@ -70,25 +70,27 @@ fun CustomAlertDialog(
                     style = MaterialTheme.typography.h5,
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    color = Color.White
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     text = description,
                     style = MaterialTheme.typography.body1,
                     fontSize = 14.sp,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    color = Color.White
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                    horizontalArrangement = Arrangement.Center
                 ) {
-                    Button(
+                    GradientButton(
+                        text = confirmText,
+                        width = 200.dp,
                         onClick = { onConfirm() }
-                    ) {
-                        Text(text = confirmText)
-                    }
+                    )
                 }
             }
         }

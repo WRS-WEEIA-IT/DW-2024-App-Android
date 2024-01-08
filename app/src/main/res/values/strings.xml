@@ -17,4 +17,6 @@
     <string name="all_events">All events</string>
     <string name="all_tasks">All tasks</string>
     <string name="task_completed">Task completed</string>
+    <string name="required_camera_access">Required camera access</string>
+    <string name="camera_access_is_required_to_scan_qr_code">Camera access is required to scan QR code. Please grant camera permission in app settings.</string>
 </resources>
