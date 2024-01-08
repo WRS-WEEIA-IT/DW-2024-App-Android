@@ -1,5 +1,7 @@
 package com.app.dw2024
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -33,6 +36,8 @@ fun MainScreen(
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             Box(
@@ -50,7 +55,7 @@ fun MainScreen(
                 if (currentRoute == BottomNavItem.Info.route) {
                     IconButton(
                         modifier = Modifier.align(Alignment.CenterEnd),
-                        onClick = { /*TODO*/ }
+                        onClick = { context.sendMail(arrayOf("wrs@mail.com"), "I have a question") }
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.Email,
@@ -78,4 +83,12 @@ fun MainScreen(
             paddingValues = it
         )
     }
+}
+
+fun Context.sendMail(to: Array<String>, subject: String) {
+    val intent = Intent(Intent.ACTION_SEND)
+    intent.type = "vnd.android.cursor.item/email"
+    intent.putExtra(Intent.EXTRA_EMAIL, to)
+    intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+    startActivity(Intent.createChooser(intent, "Choose an email client"))
 }
