@@ -7,11 +7,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -63,18 +67,47 @@ fun EventCard(
                     .fillMaxSize()
                     .background(brush = CardPurpleGradient)
             ) {
-                Column(
+                Row(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(Color.Transparent)
                         .padding(horizontal = 25.dp, vertical = 20.dp),
-                    verticalArrangement = Arrangement.SpaceBetween
+                    verticalAlignment = Alignment.Bottom
                 ) {
-                    Box(
+                    Column(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.Transparent),
-                        contentAlignment = Alignment.CenterEnd
+                            .weight(1f)
+                            .verticalScroll(rememberScrollState())
+                    ) {
+                        Text(
+                            text = eventType,
+                            color = Color.White,
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight(400),
+                            letterSpacing = 0.3.sp
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = eventTitle,
+                            color = Color.White,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight(600),
+                            letterSpacing = 0.3.sp
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = eventPlace,
+                            color = Color.White,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight(300),
+                            letterSpacing = 0.3.sp
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Column(
+                        modifier = Modifier.fillMaxHeight(),
+                        horizontalAlignment = Alignment.End,
+                        verticalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Column(
                             horizontalAlignment = Alignment.End
@@ -92,51 +125,12 @@ fun EventCard(
                                 textAlign = TextAlign.End
                             )
                         }
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.Transparent),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.Bottom
-                    ) {
-                        Column {
-                            Text(
-                                text = eventType,
-                                color = Color.White,
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight(400),
-                                letterSpacing = 0.3.sp
-                            )
-                            Spacer(modifier = Modifier.height(2.dp))
-                            Text(
-                                text = eventTitle,
-                                color = Color.White,
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight(600),
-                                letterSpacing = 0.3.sp
-                            )
-                            Spacer(modifier = Modifier.height(2.dp))
-                            Text(
-                                text = eventPlace,
-                                color = Color.White,
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight(300),
-                                letterSpacing = 0.3.sp
-                            )
-                        }
-                        Button(
-                            modifier = Modifier
-                                .height(30.dp),
-                            shape = RoundedCornerShape(10.dp),
-                            onClick = { /*TODO*/ }
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.sign_up),
-                                color = Color.White,
-                                fontSize = 10.sp,
-                            )
-                        }
+                        GradientButton(
+                            onClick = {  },
+                            text = stringResource(id = R.string.sign_up),
+                            fontSize = 9.sp,
+                            cornerShape = RoundedCornerShape(12.dp),
+                        )
                     }
                 }
             }

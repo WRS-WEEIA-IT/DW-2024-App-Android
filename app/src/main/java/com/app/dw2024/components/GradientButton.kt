@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.ui.unit.Dp
 import com.app.dw2024.ui.theme.PurpleGradient
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.times
 
 @Composable
 fun GradientButton(
@@ -33,39 +35,29 @@ fun GradientButton(
     textStyle: TextStyle = MaterialTheme.typography.button,
     isEnabled: Boolean = true,
     width: Dp = 100.dp,
-    fontSize: TextUnit = 16.sp
+    fontSize: TextUnit = 16.sp,
+    cornerShape: RoundedCornerShape = RoundedCornerShape(100.dp)
 ) {
-    Button(
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.Transparent
-        ),
-        elevation = ButtonDefaults.elevation(
-            defaultElevation = 0.dp,
-            pressedElevation = 0.dp,
-            disabledElevation = 0.dp
-        ),
-        shape = RoundedCornerShape(100.dp),
-        enabled = isEnabled,
-        modifier = modifier,
-        onClick = onClick,
-    ) {
-        Box(
-            modifier = Modifier
-                .width(width)
-                .clip(RoundedCornerShape(100.dp))
-                .background(gradient)
-                .padding(vertical = 16.dp, horizontal = 32.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = text,
-                style = textStyle,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 1.sp,
-                fontSize = fontSize,
-                textAlign = TextAlign.Center,
-                color = Color.White
+    Box(
+        modifier = modifier
+            .width(width)
+            .clip(cornerShape)
+            .background(gradient)
+            .clickable(
+                enabled = isEnabled,
+                onClick = onClick
             )
-        }
+            .padding(vertical = fontSize.value.dp, horizontal = 2 * fontSize.value.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = text,
+            style = textStyle,
+            fontWeight = FontWeight.Bold,
+            letterSpacing = 1.sp,
+            fontSize = fontSize,
+            textAlign = TextAlign.Center,
+            color = Color.White
+        )
     }
 }
