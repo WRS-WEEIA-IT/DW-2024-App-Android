@@ -26,7 +26,8 @@ import com.app.dw2024.ui.theme.DarkBlack
 
 @Composable
 fun MainScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    onQrCodeScannerClick: () -> Unit = {}
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -63,7 +64,10 @@ fun MainScreen(
                 backgroundColor = DarkBlack,
                 elevation = 0.dp,
             ) {
-                BottomNavigationBar(navController = navController)
+                BottomNavigationBar(
+                    navController = navController,
+                    onQrCodeScannerClick = onQrCodeScannerClick
+                )
             }
         },
     ) {

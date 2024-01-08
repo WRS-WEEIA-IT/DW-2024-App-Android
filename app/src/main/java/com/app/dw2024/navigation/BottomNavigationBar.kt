@@ -24,7 +24,8 @@ import com.app.dw2024.ui.theme.DarkBlack
 
 @Composable
 fun BottomNavigationBar(
-    navController: NavController
+    navController: NavController,
+    onQrCodeScannerClick: () -> Unit = {}
 ) {
     val bottomNavItems = listOf(
         BottomNavItem.Home,
@@ -64,11 +65,7 @@ fun BottomNavigationBar(
                 selectedContentColor = Color.Magenta,
                 onClick = {
                     if (item.route == "qr_code_scanner") {
-                        Toast.makeText(
-                            navController.context,
-                            "This feature is not available yet",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        onQrCodeScannerClick()
                         return@BottomNavigationItem
                     }
                     navController.navigate(item.route) {
