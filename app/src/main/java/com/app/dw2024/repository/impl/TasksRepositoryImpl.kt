@@ -24,12 +24,16 @@ class TasksRepositoryImpl @Inject constructor(
         return tasks
     }
 
-    override suspend fun completeTask(task: Task) {
+    override suspend fun completeTask(task: Task): Boolean {
         val currentlyCompletedTasks = sharedPreferences.getStringSet("completed_tasks", mutableSetOf())
+        if (currentlyCompletedTasks?.contains(task.taskNumber.toString()) == true) {
+            return false
+        }
         val newCompletedTasks = currentlyCompletedTasks?.toMutableSet()
         newCompletedTasks?.add(task.taskNumber.toString())
         sharedPreferences.edit().putStringSet("completed_tasks", newCompletedTasks).apply()
         userRepository.incrementUserPoints(task.points)
+        return true
     }
 
     override suspend fun getCompletedTasks(): List<Task> {
@@ -42,5 +46,12 @@ class TasksRepositoryImpl @Inject constructor(
             }
         )
         return completedTasks
+    }
+
+    override suspend fun getTaskByQrCode(qrCode: String): Task? {
+        val tasks = getTasks()
+        return tasks.find { task ->
+            task.qrCode == qrCode
+        }
     }
 }

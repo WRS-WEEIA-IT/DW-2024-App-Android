@@ -13,13 +13,16 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
+import com.app.dw2024.repository.interfaces.TasksRepository
 import com.app.dw2024.repository.interfaces.UserRepository
 import com.app.dw2024.ui.theme.DarkBlack
 import com.app.dw2024.ui.theme.DzienWydzialu2024Theme
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -27,6 +30,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var userRepository: UserRepository
+
+    @Inject
+    lateinit var tasksRepository: TasksRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,11 +73,23 @@ class MainActivity : ComponentActivity() {
         if (result.contents == null) {
             Toast.makeText(this, "No QR code found", Toast.LENGTH_LONG).show()
         } else {
-            Toast.makeText(this, result.contents, Toast.LENGTH_LONG).show()
+            lifecycleScope.launch {
+                val completedTask = tasksRepository.getTaskByQrCode(result.contents)
+                if (completedTask != null) {
+                    val res = tasksRepository.completeTask(completedTask)
+                    if (res) {
+                        Toast.makeText(this@MainActivity, "Task completed", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@MainActivity, "Task already completed", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    Toast.makeText(this@MainActivity, "No task found", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 
-    fun requestCameraPermission(context: Context) {
+    private fun requestCameraPermission(context: Context) {
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA)
             == PackageManager.PERMISSION_GRANTED) {
             showCamera()
