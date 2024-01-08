@@ -155,6 +155,7 @@ fun HomeScreen(
                             qrCodeImage = R.drawable.ic_qr_code,
                             finishedImage = R.drawable.ic_trophy,
                             imageLabel = stringResource(id = R.string.scan_qr_code_to_complete_task),
+                            finishedImageLabel = stringResource(id = R.string.task_completed),
                             onClick = {
 
                             }

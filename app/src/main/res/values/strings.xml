@@ -16,4 +16,5 @@
     <string name="partners">Partners</string>
     <string name="all_events">All events</string>
     <string name="all_tasks">All tasks</string>
+    <string name="task_completed">Task completed</string>
 </resources>

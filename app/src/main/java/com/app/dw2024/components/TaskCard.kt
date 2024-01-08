@@ -50,8 +50,12 @@ fun TaskCard(
     @DrawableRes qrCodeImage: Int,
     @DrawableRes finishedImage: Int,
     imageLabel: String,
+    finishedImageLabel: String,
     onClick: () -> Unit = {}
 ) {
+    val iconRes = if (isFinished) finishedImage else qrCodeImage
+    val iconLabel = if (isFinished) finishedImageLabel else imageLabel
+
     Card(
         modifier = modifier.height(160.dp),
         shape = RoundedCornerShape(8.dp),
@@ -141,13 +145,13 @@ fun TaskCard(
                     ) {
                         Image(
                             modifier = Modifier.size(66.dp),
-                            painter = painterResource(id = R.drawable.ic_qr_code),
+                            painter = painterResource(id = iconRes),
                             contentDescription = null
                         )
                         Spacer(modifier = Modifier.height(6.dp))
                         Text(
                             modifier = Modifier.width(66.dp),
-                            text = imageLabel,
+                            text = iconLabel,
                             textAlign = TextAlign.Center,
                             color = Color.White,
                             fontSize = 7.sp,
@@ -156,6 +160,12 @@ fun TaskCard(
                     }
                 }
             }
+        }
+        if (isFinished) {
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.65f))
+            )
         }
     }
 }
@@ -168,9 +178,10 @@ fun TaskCardPreview() {
         title = "Zrób zdjęcie z pracownikiem",
         description = "Zrób zdjęcie z pracownikiem i udostępnij je na Instagramie z hasztagiem #dzienwydzialu2024",
         points = 10,
-        isFinished = false,
-        qrCodeImage = R.drawable.ic_qr_code,
-        finishedImage = R.drawable.ic_trophy,
-        imageLabel = "Zeskanuj kod\naby wykonać zadanie"
+        isFinished = true,
+        qrCodeImage = R.drawable.qr_code_image,
+        finishedImage = R.drawable.check_image,
+        imageLabel = "Zeskanuj kod\naby wykonać zadanie",
+        finishedImageLabel = "Zadanie wykonane!",
     )
 }
