@@ -18,13 +18,18 @@ class InfoViewModel @Inject constructor(
         private set
 
     init {
+        refresh()
+    }
+
+    fun refresh() {
         viewModelScope.launch {
             state = state.copy(
                 userId = userRepository.getUserId().toString(),
+            )
+            state = state.copy(
                 collectedPoints = userRepository.getUserInfo()?.points ?: -1
             )
         }
-
     }
 
     fun onEvent(event: InfoEvent) {

@@ -20,6 +20,10 @@ class TasksViewModel @Inject constructor(
         private set
 
     init {
+        refresh()
+    }
+
+    fun refresh() {
         viewModelScope.launch {
             val tasks = tasksRepository.getTasks()
             state = state.copy(tasks = tasks)

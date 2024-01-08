@@ -19,6 +19,10 @@ class EventsViewModel @Inject constructor(
         private set
 
     init {
+        refresh()
+    }
+
+    fun refresh() {
         viewModelScope.launch {
             val events = eventsRepository.getEvents()
             state = state.copy(events = events)
