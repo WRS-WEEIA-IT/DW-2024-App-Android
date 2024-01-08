@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.app.dw2024.R
 import com.app.dw2024.model.Event
 import com.app.dw2024.model.Task
+import com.app.dw2024.model.getTasksForDisplay
 import com.app.dw2024.repository.interfaces.EventsRepository
 import com.app.dw2024.repository.interfaces.TasksRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,8 +31,9 @@ class HomeViewModel @Inject constructor(
     fun refresh() {
         viewModelScope.launch {
             val tasks = tasksRepository.getTasks()
+            val completedTasks = tasksRepository.getCompletedTasks()
             val events = eventsRepository.getEvents()
-            state = state.copy(tasks = tasks)
+            state = state.copy(tasks = getTasksForDisplay(tasks, completedTasks))
             state = state.copy(events = events)
         }
     }

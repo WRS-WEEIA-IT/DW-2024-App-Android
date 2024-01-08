@@ -9,3 +9,16 @@ data class Task(
     val imageSource: String = "",
     val qrCode: String = "",
 )
+
+fun getTasksForDisplay(tasks: List<Task>, completedTasks: List<Task>): List<Task> {
+    val tasksForDisplay = tasks.map { task ->
+        if (completedTasks.contains(task)) {
+            task.copy(
+                isFinished = true,
+            )
+        } else {
+            task
+        }
+    }
+    return tasksForDisplay
+}

@@ -152,8 +152,8 @@ fun HomeScreen(
                             description = task.description,
                             points = task.points,
                             isFinished = task.isFinished,
-                            qrCodeImage = R.drawable.ic_qr_code,
-                            finishedImage = R.drawable.ic_trophy,
+                            qrCodeImage = R.drawable.qr_code_image,
+                            finishedImage = R.drawable.check_image,
                             imageLabel = stringResource(id = R.string.scan_qr_code_to_complete_task),
                             finishedImageLabel = stringResource(id = R.string.task_completed),
                             onClick = {
