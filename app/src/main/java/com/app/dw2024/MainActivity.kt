@@ -1,8 +1,12 @@
 package com.app.dw2024
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -10,11 +14,17 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
+import com.app.dw2024.components.CustomAlertDialog
 import com.app.dw2024.repository.interfaces.TasksRepository
 import com.app.dw2024.repository.interfaces.UserRepository
 import com.app.dw2024.ui.theme.DarkBlack
@@ -37,6 +47,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            var isDialogVisible by remember { mutableStateOf(false) }
             DzienWydzialu2024Theme {
                 if (userRepository.getUserId() == 0) {
                     LaunchedEffect(key1 = true) {
@@ -51,9 +62,25 @@ class MainActivity : ComponentActivity() {
                     MainScreen(
                         navController = navController,
                         onQrCodeScannerClick = {
-                            requestCameraPermission(this)
+                            requestCameraPermission(this, onPermanentlyDenied = {
+                                isDialogVisible = true
+                            })
                         }
                     )
+                    if (isDialogVisible) {
+                        CustomAlertDialog(
+                            onDismiss = {
+                                isDialogVisible = false
+                            },
+                            onConfirm = {
+                                isDialogVisible = false
+                                openAppSettings()
+                            },
+                            title = "Błąd",
+                            description = "Potrzebujesz dostępu do kamery, aby móc skanować kod QR. Przejdź do ustawień aplikacji i włącz dostęp do kamery.",
+                            confirmText = "OK"
+                        )
+                    }
                 }
             }
         }
@@ -89,12 +116,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun requestCameraPermission(context: Context) {
+    private fun requestCameraPermission(context: Context, onPermanentlyDenied: () -> Unit) {
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA)
             == PackageManager.PERMISSION_GRANTED) {
             showCamera()
         } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA)) {
-            Toast.makeText(this, "Please restart app, camera is required", Toast.LENGTH_LONG).show()
+            onPermanentlyDenied()
         } else {
             requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
         }
@@ -109,5 +136,12 @@ class MainActivity : ComponentActivity() {
         options.setTorchEnabled(false)
         options.setPrompt("")
         qcCodeScannerLauncher.launch(options)
+    }
+
+    fun Activity.openAppSettings() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri = Uri.fromParts("package", packageName, null)
+        intent.data = uri
+        startActivity(intent)
     }
 }
