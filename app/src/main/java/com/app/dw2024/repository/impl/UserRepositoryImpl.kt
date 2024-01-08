@@ -1,6 +1,7 @@
 package com.app.dw2024.repository.impl
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.app.dw2024.model.User
 import com.app.dw2024.repository.interfaces.UserRepository
 import com.google.firebase.Timestamp
@@ -12,23 +13,29 @@ class UserRepositoryImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val db: FirebaseFirestore
 ): UserRepository {
-    override fun generateUserId(): Int = System.currentTimeMillis().hashCode()
-
-    override suspend fun saveUserId(userId: Int) {
+    override suspend fun createNewUser() {
+        val userId = System.currentTimeMillis().hashCode()
         sharedPreferences.edit().putInt("user_id", userId).apply()
-        db.collection("users").document(userId.toString()).set(
-            User(
-                id = userId,
-                points = 0,
-                time = Timestamp.now(),
-                winner = false
+        db.collection("users")
+            .document(userId.toString())
+            .set(
+                User(
+                    id = userId,
+                    points = 0,
+                    time = Timestamp.now(),
+                    winner = false
+                )
             )
-        ).await()
+            .await()
     }
 
     override fun getUserId(): Int = sharedPreferences.getInt("user_id", 0)
 
-    override suspend fun getUserInfo(userId: Int): User? {
+    override suspend fun getUserInfo(): User? {
+        val userId = getUserId()
+        if (userId == 0) {
+            return null
+        }
         var user: User? = null
         db.collection("users")
             .document(userId.toString())
