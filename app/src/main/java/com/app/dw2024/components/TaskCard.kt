@@ -58,7 +58,7 @@ fun TaskCard(
 
     Card(
         modifier = modifier.height(160.dp),
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(20.dp),
         elevation = 4.dp,
         backgroundColor = Color.Transparent,
         onClick = onClick
@@ -114,10 +114,10 @@ fun TaskCard(
                                 text = "Zadanie $id",
                                 color = Color.White,
                                 fontSize = 10.sp,
-                                fontWeight = FontWeight(400),
+                                fontWeight = FontWeight(500),
                                 letterSpacing = 0.3.sp
                             )
-                            Spacer(modifier = Modifier.height(2.dp))
+                            Spacer(modifier = Modifier.height(4.dp))
                             Text(
                                 text = title,
                                 color = Color.White,
@@ -125,12 +125,12 @@ fun TaskCard(
                                 fontWeight = FontWeight(600),
                                 letterSpacing = 0.3.sp
                             )
-                            Spacer(modifier = Modifier.height(2.dp))
+                            Spacer(modifier = Modifier.height(4.dp))
                             Text(
                                 modifier = Modifier.verticalScroll(rememberScrollState()),
                                 text = description,
                                 color = Color.White,
-                                fontSize = 8.sp,
+                                fontSize = 9.sp,
                                 fontWeight = FontWeight(300),
                                 letterSpacing = 0.3.sp
                             )
@@ -154,7 +154,7 @@ fun TaskCard(
                             text = iconLabel,
                             textAlign = TextAlign.Center,
                             color = Color.White,
-                            fontSize = 7.sp,
+                            fontSize = 8.sp,
                             fontWeight = FontWeight(300),
                         )
                     }
@@ -178,7 +178,7 @@ fun TaskCardPreview() {
         title = "Zrób zdjęcie z pracownikiem",
         description = "Zrób zdjęcie z pracownikiem i udostępnij je na Instagramie z hasztagiem #dzienwydzialu2024",
         points = 10,
-        isFinished = true,
+        isFinished = false,
         qrCodeImage = R.drawable.qr_code_image,
         finishedImage = R.drawable.check_image,
         imageLabel = "Zeskanuj kod\naby wykonać zadanie",

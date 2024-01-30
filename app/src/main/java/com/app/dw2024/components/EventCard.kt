@@ -48,7 +48,7 @@ fun EventCard(
 ) {
     Card(
         modifier = modifier.height(160.dp),
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(20.dp),
         elevation = 4.dp,
         backgroundColor = Color.Transparent,
         onClick = onClick
@@ -83,10 +83,10 @@ fun EventCard(
                             text = eventType,
                             color = Color.White,
                             fontSize = 10.sp,
-                            fontWeight = FontWeight(400),
+                            fontWeight = FontWeight(500),
                             letterSpacing = 0.3.sp
                         )
-                        Spacer(modifier = Modifier.height(2.dp))
+                        Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = eventTitle,
                             color = Color.White,
@@ -94,7 +94,7 @@ fun EventCard(
                             fontWeight = FontWeight(600),
                             letterSpacing = 0.3.sp
                         )
-                        Spacer(modifier = Modifier.height(2.dp))
+                        Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = eventPlace,
                             color = Color.White,
@@ -129,7 +129,6 @@ fun EventCard(
                             onClick = {  },
                             text = stringResource(id = R.string.sign_up),
                             fontSize = 9.sp,
-                            cornerShape = RoundedCornerShape(12.dp),
                         )
                     }
                 }
