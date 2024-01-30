@@ -28,7 +28,7 @@ import androidx.navigation.compose.rememberNavController
 import com.app.dw2024.components.CustomAlertDialog
 import com.app.dw2024.repository.interfaces.TasksRepository
 import com.app.dw2024.repository.interfaces.UserRepository
-import com.app.dw2024.ui.theme.DarkBlack
+import com.app.dw2024.ui.theme.DarkGrey
 import com.app.dw2024.ui.theme.DzienWydzialu2024Theme
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = DarkBlack
+                    color = DarkGrey
                 ) {
                     MainScreen(
                         navController = navController,

@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.dw2024.R
-import com.app.dw2024.ui.theme.DarkBlack
+import com.app.dw2024.ui.theme.DarkGrey
 import com.app.dw2024.ui.theme.PurpleGradient
 
 @Composable
@@ -43,8 +43,8 @@ fun InfoScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(DarkBlack)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .background(DarkGrey)
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
@@ -120,5 +120,6 @@ fun InfoScreen(
             color = Color.White,
             fontSize = 18.sp,
         )
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }

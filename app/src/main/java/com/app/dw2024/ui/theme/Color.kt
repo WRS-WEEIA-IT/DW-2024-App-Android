@@ -26,4 +26,6 @@ val PurpleGradient = Brush.horizontalGradient(
         Color(0xFF251F52)
     )
 )
+val DeepPurple = Color(0xFF3F125B)
+val DarkGrey = Color(0xFF0D0D0D)
 

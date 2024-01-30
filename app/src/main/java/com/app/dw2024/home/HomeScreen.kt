@@ -34,7 +34,7 @@ import com.app.dw2024.components.EventCard
 import com.app.dw2024.components.TaskCard
 import com.app.dw2024.events.dateFormatter
 import com.app.dw2024.events.timeFormatter
-import com.app.dw2024.ui.theme.DarkBlack
+import com.app.dw2024.ui.theme.DarkGrey
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -53,14 +53,14 @@ fun HomeScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(DarkBlack)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .background(DarkGrey)
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp),
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
-                .background(DarkBlack)
+                .background(DarkGrey)
                 .padding(top = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -162,6 +162,7 @@ fun HomeScreen(
                 },
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
             )
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }

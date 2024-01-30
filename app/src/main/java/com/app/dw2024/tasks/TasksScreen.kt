@@ -24,7 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.dw2024.R
 import com.app.dw2024.components.GainedPointsText
 import com.app.dw2024.components.TaskCard
-import com.app.dw2024.ui.theme.DarkBlack
+import com.app.dw2024.ui.theme.DarkGrey
 
 @Composable
 fun TasksScreen(
@@ -38,8 +38,8 @@ fun TasksScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(DarkBlack)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .background(DarkGrey)
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
@@ -78,6 +78,7 @@ fun TasksScreen(
                         }
                     )
                 }
+                item { Spacer(modifier = Modifier.height(1.dp)) }
             },
             verticalArrangement = Arrangement.spacedBy(10.dp),
         )

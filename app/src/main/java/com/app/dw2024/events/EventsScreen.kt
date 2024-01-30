@@ -4,8 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -24,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.dw2024.R
 import com.app.dw2024.components.EventCard
-import com.app.dw2024.ui.theme.DarkBlack
+import com.app.dw2024.ui.theme.DarkGrey
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -46,8 +48,8 @@ fun EventsScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(DarkBlack)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .background(DarkGrey)
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
@@ -87,6 +89,7 @@ fun EventsScreen(
                         eventPlace = event.hall
                     )
                 }
+                item { Spacer(modifier = Modifier.height(1.dp)) }
             },
             verticalArrangement = Arrangement.spacedBy(10.dp),
         )

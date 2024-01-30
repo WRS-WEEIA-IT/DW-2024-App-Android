@@ -28,6 +28,7 @@ import com.app.dw2024.navigation.BottomNavItem
 import com.app.dw2024.navigation.BottomNavigationBar
 import com.app.dw2024.navigation.NavigationGraph
 import com.app.dw2024.ui.theme.DarkBlack
+import com.app.dw2024.ui.theme.DarkGrey
 
 @Composable
 fun MainScreen(
@@ -43,7 +44,7 @@ fun MainScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(DarkBlack)
+                    .background(DarkGrey)
                     .padding(vertical = 16.dp, horizontal = 12.dp),
                 contentAlignment = Alignment.Center
             ) {

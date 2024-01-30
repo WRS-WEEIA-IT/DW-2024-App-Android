@@ -57,7 +57,7 @@ fun DzienWydzialu2024Theme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = DarkBlack.toArgb()
+            window.statusBarColor = DarkGrey.toArgb()
             window.navigationBarColor = DarkBlack.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
             WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = false

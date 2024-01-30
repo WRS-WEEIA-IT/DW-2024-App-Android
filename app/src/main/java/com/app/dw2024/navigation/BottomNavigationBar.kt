@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.app.dw2024.ui.theme.DarkBlack
+import com.app.dw2024.ui.theme.DeepPurple
 
 @Composable
 fun BottomNavigationBar(
@@ -50,9 +51,9 @@ fun BottomNavigationBar(
                     if (item.route == "qr_code_scanner") {
                         Box(
                             modifier = Modifier
-                                .size(42.dp)
+                                .size(54.dp)
                                 .clip(shape = CircleShape)
-                                .background(Color.Magenta),
+                                .background(DeepPurple),
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(painter = painterResource(id = item.icon), contentDescription = item.title)
@@ -62,7 +63,7 @@ fun BottomNavigationBar(
                     }
                 },
                 unselectedContentColor = Color.White,
-                selectedContentColor = Color.Magenta,
+                selectedContentColor = DeepPurple,
                 onClick = {
                     if (item.route == "qr_code_scanner") {
                         onQrCodeScannerClick()
