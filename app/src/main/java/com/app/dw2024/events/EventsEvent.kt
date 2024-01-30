@@ -7,4 +7,6 @@ sealed class EventsEvent {
     data object OnNewEventsDetected : EventsEvent()
     data class OnChangeFilter(val filter: Filter) : EventsEvent()
     data class OnSignUpClick(val event: Event) : EventsEvent()
+    data object OnBottomModalSheetShow : EventsEvent()
+    data object OnBottomModalSheetDismiss : EventsEvent()
 }

@@ -1,6 +1,5 @@
 package com.app.dw2024.events
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -41,6 +40,12 @@ class EventsViewModel @Inject constructor(
 
             is EventsEvent.OnSignUpClick -> {
 
+            }
+            is EventsEvent.OnBottomModalSheetShow -> {
+                state = state.copy(showBottomSheet = true)
+            }
+            is EventsEvent.OnBottomModalSheetDismiss -> {
+                state = state.copy(showBottomSheet = false)
             }
         }
     }
