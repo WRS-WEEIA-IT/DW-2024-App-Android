@@ -10,12 +10,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
@@ -35,6 +38,8 @@ import com.app.dw2024.components.TaskCard
 import com.app.dw2024.events.dateFormatter
 import com.app.dw2024.events.timeFormatter
 import com.app.dw2024.ui.theme.DarkGrey
+import com.app.dw2024.ui.theme.DeepPurple
+import com.google.api.Distribution.BucketOptions.Linear
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -91,27 +96,34 @@ fun HomeScreen(
                 }
             }
             Spacer(modifier = Modifier.height(12.dp))
-            LazyRow(
-                content = {
-                    items(viewModel.state.events) { event ->
-                        val startTimeInstant = Instant.ofEpochSecond(event.timeStart.seconds, event.timeStart.nanoseconds.toLong())
-                        val endTimeInstant = Instant.ofEpochSecond(event.timeEnd.seconds, event.timeEnd.nanoseconds.toLong())
-                        val startTime = LocalDateTime.ofInstant(startTimeInstant, ZoneId.systemDefault())
-                        val endTime = LocalDateTime.ofInstant(endTimeInstant, ZoneId.systemDefault())
-                        val date = startTime.format(dateFormatter)
-                        val time = "${startTime.format(timeFormatter)} - ${endTime.format(timeFormatter)}"
-                        EventCard(
-                            modifier = Modifier.width(configuration.screenWidthDp.dp - 64.dp),
-                            date = date,
-                            time = time,
-                            eventType = event.type,
-                            eventTitle = event.title,
-                            eventPlace = event.hall
-                        )
-                    }
-                },
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-            )
+            Box(
+                modifier = Modifier
+                    .height(160.dp)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                if (viewModel.state.events.isEmpty()) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.height(6.dp).offset(y = (-8).dp),
+                        color = DeepPurple
+                    )
+                } else {
+                    val event = viewModel.state.events.first()
+                    val startTimeInstant = Instant.ofEpochSecond(event.timeStart.seconds, event.timeStart.nanoseconds.toLong())
+                    val endTimeInstant = Instant.ofEpochSecond(event.timeEnd.seconds, event.timeEnd.nanoseconds.toLong())
+                    val startTime = LocalDateTime.ofInstant(startTimeInstant, ZoneId.systemDefault())
+                    val endTime = LocalDateTime.ofInstant(endTimeInstant, ZoneId.systemDefault())
+                    val date = startTime.format(dateFormatter)
+                    val time = "${startTime.format(timeFormatter)} - ${endTime.format(timeFormatter)}"
+                    EventCard(
+                        date = date,
+                        time = time,
+                        eventType = event.type,
+                        eventTitle = event.title,
+                        eventPlace = event.hall
+                    )
+                }
+            }
             Spacer(modifier = Modifier.height(12.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -141,23 +153,40 @@ fun HomeScreen(
             }
             Spacer(modifier = Modifier.height(12.dp))
             LazyRow(
+                modifier = Modifier.height(160.dp),
                 content = {
-                    items(viewModel.state.tasks) { task ->
-                        TaskCard(
-                            modifier = Modifier.width(configuration.screenWidthDp.dp - 64.dp),
-                            id = task.taskNumber,
-                            title = task.title,
-                            description = task.description,
-                            points = task.points,
-                            isFinished = task.isFinished,
-                            qrCodeImage = R.drawable.qr_code_image,
-                            finishedImage = R.drawable.check_image,
-                            imageLabel = stringResource(id = R.string.scan_qr_code_to_complete_task),
-                            finishedImageLabel = stringResource(id = R.string.task_completed),
-                            onClick = {
-
+                    if (viewModel.state.tasks.isEmpty()) {
+                        item {
+                            Box(
+                                modifier = Modifier
+                                    .height(160.dp)
+                                    .fillMaxWidth(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.height(6.dp).offset(y = (-8).dp),
+                                    color = DeepPurple
+                                )
                             }
-                        )
+                        }
+                    } else {
+                        items(viewModel.state.tasks) { task ->
+                            TaskCard(
+                                modifier = Modifier.width(configuration.screenWidthDp.dp - 64.dp),
+                                id = task.taskNumber,
+                                title = task.title,
+                                description = task.description,
+                                points = task.points,
+                                isFinished = task.isFinished,
+                                qrCodeImage = R.drawable.qr_code_image,
+                                finishedImage = R.drawable.check_image,
+                                imageLabel = stringResource(id = R.string.scan_qr_code_to_complete_task),
+                                finishedImageLabel = stringResource(id = R.string.task_completed),
+                                onClick = {
+
+                                }
+                            )
+                        }
                     }
                 },
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
