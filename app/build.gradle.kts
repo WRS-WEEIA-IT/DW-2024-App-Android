@@ -83,4 +83,7 @@ dependencies {
 
     // ZXing Barcode Scanner
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
+    // Zoomable
+    implementation("net.engawapg.lib:zoomable:1.5.3")
 }

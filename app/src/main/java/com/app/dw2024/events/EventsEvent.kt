@@ -10,5 +10,4 @@ sealed class EventsEvent {
     data class OnSignUpClick(val event: Event) : EventsEvent()
     data object OnBottomModalSheetShow : EventsEvent()
     data object OnBottomModalSheetDismiss : EventsEvent()
-    data class OnMapImageScaleChange(val pan: Offset, val zoom: Float, val rotation: Float) : EventsEvent()
 }

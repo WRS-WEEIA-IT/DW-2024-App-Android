@@ -47,6 +47,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.dw2024.R
 import com.app.dw2024.components.EventCard
 import com.app.dw2024.ui.theme.DarkGrey
+import net.engawapg.lib.zoomable.rememberZoomState
+import net.engawapg.lib.zoomable.zoomable
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -122,32 +124,26 @@ fun EventsScreen(
 
     if (viewModel.state.showBottomSheet) {
         ModalBottomSheet(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             sheetState = sheetState,
             onDismissRequest = {
                 viewModel.onEvent(EventsEvent.OnBottomModalSheetDismiss)
             },
             containerColor = DarkGrey,
         ) {
+            val painter = painterResource(id = R.drawable.polish_example_map)
+            val zoomState = rememberZoomState(contentSize = painter.intrinsicSize)
             Image(
-                painter = painterResource(id = R.drawable.polish_example_map),
+                painter = painter,
                 contentDescription = null,
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
-                    .padding(bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding())
-                    .pointerInput(Unit) {
-                        detectTransformGestures { _, pan, zoom, rotation ->
-                            viewModel.onEvent(EventsEvent.OnMapImageScaleChange(pan, zoom, rotation))
-                        }
-                    }
-                    .graphicsLayer(
-                        scaleX = viewModel.state.mapScale,
-                        scaleY = viewModel.state.mapScale,
-                        translationX = viewModel.state.mapOffset.x,
-                        translationY = viewModel.state.mapOffset.y,
-                        rotationZ = viewModel.state.mapRotation
+                    .padding(
+                        bottom = WindowInsets.navigationBars
+                            .asPaddingValues()
+                            .calculateBottomPadding()
                     )
+                    .zoomable(zoomState)
             )
         }
     }
