@@ -139,7 +139,7 @@ class MainActivity : ComponentActivity() {
         qcCodeScannerLauncher.launch(options)
     }
 
-    fun Activity.openAppSettings() {
+    private fun Activity.openAppSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", packageName, null)
         intent.data = uri

@@ -3,6 +3,7 @@ package com.app.dw2024.events
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.dw2024.repository.interfaces.EventsRepository
@@ -42,10 +43,30 @@ class EventsViewModel @Inject constructor(
 
             }
             is EventsEvent.OnBottomModalSheetShow -> {
-                state = state.copy(showBottomSheet = true)
+                state = state.copy(
+                    showBottomSheet = true,
+                    mapScale = 1f,
+                    mapOffset = Offset(0f, 0f),
+                    mapRotation = 0f
+                )
             }
             is EventsEvent.OnBottomModalSheetDismiss -> {
-                state = state.copy(showBottomSheet = false)
+                state = state.copy(
+                    showBottomSheet = false,
+                    mapScale = 1f,
+                    mapOffset = Offset(0f, 0f),
+                    mapRotation = 0f
+                )
+            }
+            is EventsEvent.OnMapImageScaleChange -> {
+                val newMapScale = (state.mapScale * event.zoom).coerceIn(0.8f, 4f)
+                val newMapOffset = state.mapOffset + event.pan
+                val newMapRotation = state.mapRotation + event.rotation
+                state = state.copy(
+                    mapScale = newMapScale,
+                    mapOffset = newMapOffset,
+                    mapRotation = newMapRotation
+                )
             }
         }
     }
