@@ -258,8 +258,8 @@ fun HomeScreen(
                 TaskCard(
                     modifier = Modifier.fillMaxWidth(),
                     id = -1,
-                    title = "Udało Ci się ukończyć wszystkie zadania.",
-                    description = "Gratulacje :)",
+                    title = stringResource(id = R.string.you_completed_all_tasks),
+                    description = stringResource(id = R.string.congratulations),
                     points = -1,
                     isFinished = false,
                     qrCodeImage = R.drawable.qr_code_image,

@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -111,7 +112,7 @@ fun TaskCard(
                                         shape = RoundedCornerShape(100.dp)
                                     )
                                     .padding(horizontal = 15.dp, vertical = 6.5.dp),
-                                text = "$points PUNKTÓW",
+                                text = stringResource(id = R.string.x_points, points),
                                 color = Color.White,
                                 fontSize = 8.sp,
                                 fontWeight = FontWeight.SemiBold,
@@ -123,7 +124,7 @@ fun TaskCard(
                         Column {
                             if (id != -1) {
                                 Text(
-                                    text = "Zadanie $id",
+                                    text = stringResource(id = R.string.task_x, id),
                                     color = Color.White,
                                     fontSize = 10.sp,
                                     fontWeight = FontWeight.Medium,

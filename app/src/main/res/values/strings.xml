@@ -28,4 +28,14 @@
     <string name="rules_are_simple">Rules are simple</string>
     <string name="we_will_inform_students">We will inform students who have the most points after the event in the info section</string>
     <string name="wrs_weeia_is_the_only_sponsor_of_any_rewards">WRS WEEIA is the only sponsor of any rewards</string>
+    <string name="task_x">Task %d</string>
+    <string name="x_points">%d POINTS</string>
+    <string name="you_completed_all_tasks">You completed all tasks</string>
+    <string name="congratulations">Congratulations :)</string>
+    <string name="you_already_completed_this_task">You already completed this task</string>
+    <string name="this_task_does_not_exist">This task does not exist</string>
+    <string name="you_won">You won!</string>
+    <string name="go_to_wrs_office_to_collect_your_prize">Go to the WRS office to collect your prize!</string>
+    <string name="you_lost">You lost...</string>
+    <string name="try_again_next_time">Try again next time!</string>
 </resources>

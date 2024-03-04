@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -80,12 +81,12 @@ fun MainScreen(
                 is MainEvent.OnTaskAlreadyFinished -> {
                     vibrator.cancel()
                     vibrator.vibrate(failureVibrationEffect)
-                    Toast.makeText(context, "Task already finished", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.resources.getString(R.string.you_already_completed_this_task), Toast.LENGTH_SHORT).show()
                 }
                 is MainEvent.OnNoSuchTaskExists -> {
                     vibrator.cancel()
                     vibrator.vibrate(failureVibrationEffect)
-                    Toast.makeText(context, "You don't have such task", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.resources.getString(R.string.this_task_does_not_exist), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -144,8 +145,8 @@ fun MainScreen(
         CustomAlertDialog(
             onDismiss = { mainViewModel.onDialogDismiss() },
             onConfirm = { mainViewModel.onDialogDismiss() },
-            title = "You won!",
-            description = "Go to the WRS office to collect your prize!",
+            title = stringResource(id = R.string.you_won),
+            description = stringResource(id = R.string.go_to_wrs_office_to_collect_your_prize),
             confirmText = "OK",
             alpha = 1f,
             borderWidth = 2.dp,
@@ -159,8 +160,8 @@ fun MainScreen(
         CustomAlertDialog(
             onDismiss = { mainViewModel.onDialogDismiss() },
             onConfirm = { mainViewModel.onDialogDismiss() },
-            title = "You lost...",
-            description = "Try again next time!",
+            title = stringResource(id = R.string.you_lost),
+            description = stringResource(id = R.string.try_again_next_time),
             confirmText = "OK",
             alpha = 1f,
             borderWidth = 2.dp,

@@ -149,13 +149,5 @@ fun InfoScreen(
             Image(painter = painterResource(id = R.drawable.weeia_logo), contentDescription = null)
             Image(painter = painterResource(id = R.drawable.wrs_weeia_logo), contentDescription = null)
         }
-//        Spacer(modifier = Modifier.height(20.dp))
-//        Text(
-//            text = stringResource(id = R.string.partners),
-//            color = Color.White,
-//            fontSize = 18.sp,
-//            fontFamily = Montserrat
-//        )
-//        Spacer(modifier = Modifier.height(8.dp))
     }
 }
