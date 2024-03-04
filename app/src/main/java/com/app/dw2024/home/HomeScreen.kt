@@ -180,7 +180,10 @@ fun HomeScreen(
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
-                val event = (mainViewModel.state.lectures + mainViewModel.state.workshops).minByOrNull { it.timeStart }
+                val currentTimeInSeconds = System.currentTimeMillis() / 1000
+                val event = (mainViewModel.state.lectures + mainViewModel.state.workshops)
+                    .filter { currentTimeInSeconds < it.timeStart.seconds }
+                    .minByOrNull { it.timeStart }
                 if (event != null) {
                     val startTimeInstant = Instant.ofEpochSecond(event.timeStart.seconds, event.timeStart.nanoseconds.toLong())
                     val endTimeInstant = Instant.ofEpochSecond(event.timeEnd.seconds, event.timeEnd.nanoseconds.toLong())

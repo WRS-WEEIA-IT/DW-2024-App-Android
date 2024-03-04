@@ -40,7 +40,7 @@ class MainViewModel @Inject constructor(
             }
             lectures.addAll(
                 value?.map { documentSnapshot ->
-                    documentSnapshot.toObject(Event::class.java)
+                    documentSnapshot.toObject(Event::class.java).apply { this.type = "Lecture" }
                 } ?: emptyList()
             )
             viewModelScope.launch {
@@ -53,7 +53,7 @@ class MainViewModel @Inject constructor(
             }
             workshops.addAll(
                 value?.map { documentSnapshot ->
-                    documentSnapshot.toObject(Event::class.java)
+                    documentSnapshot.toObject(Event::class.java).apply { this.type = "Workshop" }
                 } ?: emptyList()
             )
             viewModelScope.launch {

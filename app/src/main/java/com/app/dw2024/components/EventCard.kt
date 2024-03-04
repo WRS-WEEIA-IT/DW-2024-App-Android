@@ -82,9 +82,7 @@ fun EventCard(
                     verticalAlignment = Alignment.Bottom
                 ) {
                     Column(
-                        modifier = Modifier
-                            .weight(1f)
-                            .verticalScroll(rememberScrollState())
+                        modifier = Modifier.weight(1f)
                     ) {
                         Text(
                             text = eventType,
@@ -98,16 +96,17 @@ fun EventCard(
                         Text(
                             text = eventTitle,
                             color = Color.White,
-                            fontSize = 14.sp,
+                            fontSize = 11.sp,
                             fontWeight = FontWeight(600),
                             letterSpacing = 0.3.sp,
-                            fontFamily = Montserrat
+                            fontFamily = Montserrat,
+                            maxLines = 5
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = eventPlace,
                             color = Color.White,
-                            fontSize = 12.sp,
+                            fontSize = 10.sp,
                             fontWeight = FontWeight(300),
                             letterSpacing = 0.3.sp,
                             fontFamily = Montserrat
@@ -137,11 +136,13 @@ fun EventCard(
                                 fontFamily = Montserrat
                             )
                         }
-                        GradientButton(
-                            onClick = onClick,
-                            text = stringResource(id = R.string.sign_up),
-                            fontSize = 9.sp,
-                        )
+                        if (eventType != "Lecture") {
+                            GradientButton(
+                                onClick = onClick,
+                                text = stringResource(id = R.string.sign_up),
+                                fontSize = 9.sp,
+                            )
+                        }
                     }
                 }
             }

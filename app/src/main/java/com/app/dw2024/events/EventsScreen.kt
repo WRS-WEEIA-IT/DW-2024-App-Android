@@ -101,7 +101,11 @@ fun EventsScreen(
                 )
             }
         }
-        val events = listOf(mainViewModel.state.lectures, mainViewModel.state.workshops).flatten().sortedBy { it.timeStart }
+        val currentTimeInSeconds = System.currentTimeMillis() / 1000
+        val events = listOf(mainViewModel.state.lectures, mainViewModel.state.workshops)
+            .flatten()
+            .filter { currentTimeInSeconds < it.timeEnd.seconds }
+            .sortedBy { it.timeStart }
         LazyColumn(
             content = {
                 items(events) { event ->
