@@ -14,7 +14,7 @@ class UserRepositoryImpl @Inject constructor(
     private val db: FirebaseFirestore
 ): UserRepository {
     override suspend fun createNewUser() {
-        val userId = System.currentTimeMillis().hashCode()
+        val userId = (System.currentTimeMillis().hashCode().and(0xfffffff))
         sharedPreferences.edit().putInt("user_id", userId).apply()
         db.collection("users")
             .document(userId.toString())
