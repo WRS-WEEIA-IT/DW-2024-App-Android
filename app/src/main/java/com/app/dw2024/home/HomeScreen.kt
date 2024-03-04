@@ -1,6 +1,5 @@
 package com.app.dw2024.home
 
-import android.util.Log
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -25,7 +24,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
-import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
@@ -33,7 +31,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -53,9 +50,7 @@ import androidx.navigation.NavController
 import com.app.dw2024.R
 import com.app.dw2024.components.EventCard
 import com.app.dw2024.components.TaskCard
-import com.app.dw2024.constant.Constants
-import com.app.dw2024.events.EventsEvent
-import com.app.dw2024.events.EventsScreen
+import com.app.dw2024.util.Constants
 import com.app.dw2024.events.dateFormatter
 import com.app.dw2024.events.timeFormatter
 import com.app.dw2024.navigation.BottomNavItem
@@ -63,7 +58,6 @@ import com.app.dw2024.ui.theme.CardPurpleGradient
 import com.app.dw2024.ui.theme.DarkGrey
 import com.app.dw2024.ui.theme.DeepPurple
 import com.app.dw2024.ui.theme.Montserrat
-import com.google.api.Distribution.BucketOptions.Linear
 import kotlinx.coroutines.delay
 import java.time.Instant
 import java.time.LocalDateTime
@@ -210,7 +204,8 @@ fun HomeScreen(
                         eventPlace = event.hall,
                         onClick = {
                             uriHandler.openUri(Constants.FORMS_URL)
-                        }
+                        },
+                        imageSrc = event.imageSource
                     )
                 }
             }

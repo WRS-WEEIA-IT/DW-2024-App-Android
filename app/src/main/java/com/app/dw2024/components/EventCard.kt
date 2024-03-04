@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import com.app.dw2024.R
 import com.app.dw2024.ui.theme.CardPurpleGradient
 import com.app.dw2024.ui.theme.Montserrat
+import com.app.dw2024.util.MapImageSourceToDrawableRes
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -46,6 +48,7 @@ fun EventCard(
     eventType: String,
     eventTitle: String,
     eventPlace: String,
+    imageSrc: String,
     onClick: () -> Unit = {}
 ) {
     Card(
@@ -59,9 +62,10 @@ fun EventCard(
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
+            val imageResId = MapImageSourceToDrawableRes.eventImagesMap[imageSrc] ?: R.drawable.card_background_image
             Image(
                 modifier = Modifier.fillMaxWidth(),
-                painter = painterResource(id = R.drawable.card_background_image),
+                painter = painterResource(id = imageResId),
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
@@ -159,6 +163,7 @@ fun PreviewEventCard() {
         time = "10:00 - 11:30",
         eventType = "Szkolenie",
         eventTitle = "QA - Automatyzacja testów",
-        eventPlace = "Sala E104"
+        eventPlace = "Sala E104",
+        imageSrc = "programming",
     )
 }
