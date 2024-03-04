@@ -2,6 +2,7 @@ package com.app.dw2024.home
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,11 +33,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.app.dw2024.R
 import com.app.dw2024.components.EventCard
 import com.app.dw2024.components.TaskCard
 import com.app.dw2024.events.dateFormatter
 import com.app.dw2024.events.timeFormatter
+import com.app.dw2024.navigation.BottomNavItem
 import com.app.dw2024.ui.theme.DarkGrey
 import com.app.dw2024.ui.theme.DeepPurple
 import com.google.api.Distribution.BucketOptions.Linear
@@ -47,6 +50,7 @@ import java.time.ZoneId
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    navController: NavController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val configuration = LocalConfiguration.current
@@ -80,6 +84,14 @@ fun HomeScreen(
                     fontSize = 18.sp,
                 )
                 Row(
+                    modifier = Modifier.clickable {
+                        navController.navigate(BottomNavItem.Events.route) {
+                            launchSingleTop = true
+                            popUpTo(BottomNavItem.Events.route) {
+                                inclusive = true
+                            }
+                        }
+                    },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
@@ -136,6 +148,14 @@ fun HomeScreen(
                     fontSize = 18.sp,
                 )
                 Row(
+                    modifier = Modifier.clickable {
+                        navController.navigate(BottomNavItem.Tasks.route) {
+                            launchSingleTop = true
+                            popUpTo(BottomNavItem.Tasks.route) {
+                                inclusive = true
+                            }
+                        }
+                    },
                     verticalAlignment = Alignment.CenterVertically
                 ){
                     Text(

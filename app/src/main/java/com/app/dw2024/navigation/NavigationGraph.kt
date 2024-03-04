@@ -25,7 +25,10 @@ fun NavigationGraph(
         startDestination = BottomNavItem.Home.route
     ) {
         composable(BottomNavItem.Home.route) {
-            HomeScreen(modifier = Modifier.padding(paddingValues))
+            HomeScreen(
+                navController = navController,
+                modifier = Modifier.padding(paddingValues)
+            )
         }
         composable(BottomNavItem.Events.route) {
             EventsScreen(modifier = Modifier.padding(paddingValues))
