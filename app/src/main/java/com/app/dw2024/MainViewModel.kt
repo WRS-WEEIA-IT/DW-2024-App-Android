@@ -14,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -114,6 +115,31 @@ class MainViewModel @Inject constructor(
             userRepository.incrementUserPoints(task.points)
         }
         return true
+    }
+
+    suspend fun checkIfUserWonAfterEventAndDisplayDialogMessage() {
+        val endTime = db.collection("contestTime").document("time").get().await()
+            .getTimestamp("endTime")?.toDate()?.time
+        if (endTime != null && System.currentTimeMillis() > endTime) {
+            db.collection("users").document(userRepository.getUserId().toString()).get().addOnSuccessListener { documentSnapshot ->
+                val isWinner = documentSnapshot.getBoolean("winner")
+                if (isWinner == true) {
+                    viewModelScope.launch {
+                        state = state.copy(isWinningDialogVisible = true)
+                    }
+                } else {
+                    viewModelScope.launch {
+                        state = state.copy(isLosingDialogVisible = true)
+                    }
+                }
+            }
+        }
+    }
+
+    fun onDialogDismiss() {
+        viewModelScope.launch {
+            state = state.copy(isWinningDialogVisible = false, isLosingDialogVisible = false)
+        }
     }
 
     fun showNoQrCodeDetected() {

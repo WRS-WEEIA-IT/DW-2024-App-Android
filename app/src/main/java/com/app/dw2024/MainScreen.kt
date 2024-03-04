@@ -28,11 +28,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.app.dw2024.components.CustomAlertDialog
 import com.app.dw2024.navigation.BottomNavItem
 import com.app.dw2024.navigation.BottomNavigationBar
 import com.app.dw2024.navigation.NavigationGraph
 import com.app.dw2024.ui.theme.DarkBlack
 import com.app.dw2024.ui.theme.DarkGrey
+import com.app.dw2024.ui.theme.GreenColor
+import com.app.dw2024.ui.theme.GreenGradient
+import com.app.dw2024.ui.theme.RedColor
+import com.app.dw2024.ui.theme.RedGradient
 
 @Composable
 fun MainScreen(
@@ -132,6 +137,37 @@ fun MainScreen(
             navController = navController,
             paddingValues = it,
             mainViewModel = mainViewModel
+        )
+    }
+
+    if (mainViewModel.state.isWinningDialogVisible) {
+        CustomAlertDialog(
+            onDismiss = { mainViewModel.onDialogDismiss() },
+            onConfirm = { mainViewModel.onDialogDismiss() },
+            title = "You won!",
+            description = "Go to the WRS office to collect your prize!",
+            confirmText = "OK",
+            alpha = 1f,
+            borderWidth = 2.dp,
+            borderGradient = GreenGradient,
+            buttonGradient = GreenGradient,
+            icon = R.drawable.ic_win,
+            iconColor = GreenColor
+        )
+    }
+    if (mainViewModel.state.isLosingDialogVisible) {
+        CustomAlertDialog(
+            onDismiss = { mainViewModel.onDialogDismiss() },
+            onConfirm = { mainViewModel.onDialogDismiss() },
+            title = "You lost...",
+            description = "Try again next time!",
+            confirmText = "OK",
+            alpha = 1f,
+            borderWidth = 2.dp,
+            borderGradient = RedGradient,
+            buttonGradient = RedGradient,
+            icon = R.drawable.ic_lose,
+            iconColor = RedColor
         )
     }
 }

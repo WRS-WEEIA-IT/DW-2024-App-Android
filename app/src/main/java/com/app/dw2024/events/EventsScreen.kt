@@ -67,6 +67,10 @@ fun EventsScreen(
     )
     val uriHandler = LocalUriHandler.current
 
+    LaunchedEffect(true) {
+        mainViewModel.checkIfUserWonAfterEventAndDisplayDialogMessage()
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()

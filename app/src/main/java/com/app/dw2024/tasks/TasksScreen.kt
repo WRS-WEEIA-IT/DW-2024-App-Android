@@ -35,6 +35,10 @@ fun TasksScreen(
     modifier: Modifier = Modifier,
     mainViewModel: MainViewModel
 ) {
+    LaunchedEffect(true) {
+        mainViewModel.checkIfUserWonAfterEventAndDisplayDialogMessage()
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()

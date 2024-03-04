@@ -58,7 +58,10 @@ fun NavigationGraph(
                 )
             }
             composable(BottomNavItem.Info.route) {
-                InfoScreen(modifier = Modifier.padding(paddingValues))
+                InfoScreen(
+                    modifier = Modifier.padding(paddingValues),
+                    mainViewModel = mainViewModel
+                )
             }
         }
     }

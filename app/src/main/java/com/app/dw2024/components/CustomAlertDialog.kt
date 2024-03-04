@@ -1,5 +1,7 @@
 package com.app.dw2024.components
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material3.AlertDialog
@@ -19,14 +22,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.app.dw2024.R
 import com.app.dw2024.ui.theme.DarkBlack
+import com.app.dw2024.ui.theme.GreenColor
+import com.app.dw2024.ui.theme.GreenGradient
 import com.app.dw2024.ui.theme.Montserrat
 import com.app.dw2024.ui.theme.PurpleGradient
 
@@ -36,7 +46,13 @@ fun CustomAlertDialog(
     onConfirm: () -> Unit,
     title: String,
     description: String,
-    confirmText: String
+    confirmText: String,
+    borderWidth: Dp = 1.5.dp,
+    borderGradient: Brush = PurpleGradient,
+    buttonGradient: Brush = PurpleGradient,
+    alpha: Float = 0.9f,
+    @DrawableRes icon: Int? = null,
+    iconColor: Color = GreenColor
 ) {
     Dialog(
         onDismissRequest = {
@@ -52,10 +68,10 @@ fun CustomAlertDialog(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .clip(RoundedCornerShape(15.dp))
-                .background(DarkBlack.copy(alpha = 0.9f))
+                .background(DarkBlack.copy(alpha = alpha))
                 .border(
-                    width = 1.5.dp,
-                    brush = PurpleGradient,
+                    width = borderWidth,
+                    brush = borderGradient,
                     shape = RoundedCornerShape(15.dp)
                 )
                 .padding(16.dp),
@@ -66,6 +82,14 @@ fun CustomAlertDialog(
                     .padding(12.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                icon?.let {
+                    Icon(
+                        painter = painterResource(id = icon),
+                        contentDescription = null,
+                        tint = iconColor,
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
                 Text(
                     text = title,
                     style = MaterialTheme.typography.h5,
@@ -91,11 +115,29 @@ fun CustomAlertDialog(
                 ) {
                     GradientButton(
                         text = confirmText,
-                        width = 200.dp,
+                        width = 180.dp,
+                        gradient = buttonGradient,
                         onClick = { onConfirm() }
                     )
                 }
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun CustomAlertDialogPreview() {
+    CustomAlertDialog(
+        onDismiss = { /*TODO*/ },
+        onConfirm = { /*TODO*/ },
+        title = "Contest results",
+        description = "You won!",
+        confirmText = "OK",
+        alpha = 1f,
+        borderWidth = 2.dp,
+        borderGradient = GreenGradient,
+        buttonGradient = GreenGradient,
+        icon = R.drawable.check_image
+    )
 }

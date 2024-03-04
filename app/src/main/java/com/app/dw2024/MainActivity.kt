@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
-            var isDialogVisible by remember { mutableStateOf(false) }
+            var isCameraPermissionDialogVisible by remember { mutableStateOf(false) }
             DzienWydzialu2024Theme {
                 if (userRepository.getUserId() == 0) {
                     LaunchedEffect(key1 = true) {
@@ -63,18 +63,18 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         onQrCodeScannerClick = {
                             requestCameraPermission(this, onPermanentlyDenied = {
-                                isDialogVisible = true
+                                isCameraPermissionDialogVisible = true
                             })
                         },
                         mainViewModel = mainViewModel
                     )
-                    if (isDialogVisible) {
+                    if (isCameraPermissionDialogVisible) {
                         CustomAlertDialog(
                             onDismiss = {
-                                isDialogVisible = false
+                                isCameraPermissionDialogVisible = false
                             },
                             onConfirm = {
-                                isDialogVisible = false
+                                isCameraPermissionDialogVisible = false
                                 openAppSettings()
                             },
                             title = stringResource(id = R.string.required_camera_access),

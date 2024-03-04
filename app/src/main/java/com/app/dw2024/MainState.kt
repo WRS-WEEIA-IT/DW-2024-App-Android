@@ -8,4 +8,6 @@ data class MainState(
     val lectures: List<Event> = listOf(),
     val workshops: List<Event> = listOf(),
     val collectedPoints: Int = 0,
+    val isWinningDialogVisible: Boolean = false,
+    val isLosingDialogVisible: Boolean = false
 )

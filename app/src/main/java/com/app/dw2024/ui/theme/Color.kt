@@ -29,3 +29,19 @@ val PurpleGradient = Brush.horizontalGradient(
 val DeepPurple = Color(0xFF3F125B)
 val DarkGrey = Color(0xFF0D0D0D)
 
+val GreenGradient = Brush.horizontalGradient(
+    colors = listOf(
+        Color(0xFF3FB105),
+        Color(0xFF12350A)
+    )
+)
+val GreenColor = Color(0xFF3FB105)
+
+val RedGradient = Brush.horizontalGradient(
+    colors = listOf(
+        Color(0xFF580A05),
+        Color(0xFF1A0A09)
+    )
+)
+val RedColor = Color(0xFFF90800)
+

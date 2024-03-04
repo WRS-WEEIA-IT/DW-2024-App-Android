@@ -75,6 +75,10 @@ fun HomeScreen(
     var currentPage by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(true) {
+        mainViewModel.checkIfUserWonAfterEventAndDisplayDialogMessage()
+    }
+
+    LaunchedEffect(true) {
         while (true) {
             delay(2000)
             currentPage = (currentPage + 1) % viewModel.state.pagerImages.size

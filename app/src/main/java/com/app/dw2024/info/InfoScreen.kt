@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.app.dw2024.MainViewModel
 import com.app.dw2024.R
 import com.app.dw2024.ui.theme.DarkGrey
 import com.app.dw2024.ui.theme.Montserrat
@@ -35,8 +36,13 @@ import com.app.dw2024.ui.theme.PurpleGradient
 @Composable
 fun InfoScreen(
     modifier: Modifier = Modifier,
-    viewModel: InfoViewModel = hiltViewModel()
+    viewModel: InfoViewModel = hiltViewModel(),
+    mainViewModel: MainViewModel
 ) {
+    LaunchedEffect(true) {
+        mainViewModel.checkIfUserWonAfterEventAndDisplayDialogMessage()
+    }
+
     LaunchedEffect(key1 = true) {
         viewModel.refresh()
     }
