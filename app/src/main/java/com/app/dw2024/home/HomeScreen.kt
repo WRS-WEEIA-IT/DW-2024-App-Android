@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.app.dw2024.MainViewModel
 import com.app.dw2024.R
 import com.app.dw2024.components.EventCard
 import com.app.dw2024.components.TaskCard
@@ -68,16 +69,13 @@ import java.time.ZoneId
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    mainViewModel: MainViewModel
 ) {
     val configuration = LocalConfiguration.current
     val uriHandler = LocalUriHandler.current
     val pagerState = rememberPagerState { viewModel.state.pagerImages.size }
     var currentPage by remember { mutableIntStateOf(0) }
-
-    LaunchedEffect(key1 = true) {
-        viewModel.refresh()
-    }
 
     LaunchedEffect(true) {
         while (true) {
@@ -181,15 +179,8 @@ fun HomeScreen(
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
-                if (viewModel.state.events.isEmpty()) {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .height(6.dp)
-                            .offset(y = (-8).dp),
-                        color = DeepPurple
-                    )
-                } else {
-                    val event = viewModel.state.events.first()
+                val event = (mainViewModel.state.lectures + mainViewModel.state.workshops).minByOrNull { it.timeStart }
+                if (event != null) {
                     val startTimeInstant = Instant.ofEpochSecond(event.timeStart.seconds, event.timeStart.nanoseconds.toLong())
                     val endTimeInstant = Instant.ofEpochSecond(event.timeEnd.seconds, event.timeEnd.nanoseconds.toLong())
                     val startTime = LocalDateTime.ofInstant(startTimeInstant, ZoneId.systemDefault())
@@ -207,6 +198,15 @@ fun HomeScreen(
                         },
                         imageSrc = event.imageSource
                     )
+                } else {
+                    Box(
+                        modifier = Modifier
+                            .height(160.dp)
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(12.dp))

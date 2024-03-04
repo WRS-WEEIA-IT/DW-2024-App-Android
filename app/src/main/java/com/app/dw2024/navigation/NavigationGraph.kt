@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.app.dw2024.MainViewModel
 import com.app.dw2024.events.EventsScreen
 import com.app.dw2024.home.HomeScreen
 import com.app.dw2024.info.InfoScreen
@@ -20,7 +21,8 @@ import com.app.dw2024.ui.theme.DarkBlack
 @Composable
 fun NavigationGraph(
     navController:  NavHostController,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    mainViewModel: MainViewModel
 ) {
     Scaffold(
         modifier = Modifier.background(DarkBlack)
@@ -39,11 +41,15 @@ fun NavigationGraph(
             composable(BottomNavItem.Home.route) {
                 HomeScreen(
                     navController = navController,
-                    modifier = Modifier.padding(paddingValues)
+                    modifier = Modifier.padding(paddingValues),
+                    mainViewModel = mainViewModel
                 )
             }
             composable(BottomNavItem.Events.route) {
-                EventsScreen(modifier = Modifier.padding(paddingValues))
+                EventsScreen(
+                    modifier = Modifier.padding(paddingValues),
+                    mainViewModel = mainViewModel
+                )
             }
             composable(BottomNavItem.Tasks.route) {
                 TasksScreen(modifier = Modifier.padding(paddingValues))

@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,8 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.app.dw2024.components.CustomAlertDialog
@@ -49,7 +45,7 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var tasksRepository: TasksRepository
 
-    private val viewModel by viewModels<MainViewModel>()
+    private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +70,7 @@ class MainActivity : ComponentActivity() {
                                 isDialogVisible = true
                             })
                         },
-                        viewModel = viewModel
+                        viewModel = mainViewModel
                     )
                     if (isDialogVisible) {
                         CustomAlertDialog(
@@ -107,19 +103,21 @@ class MainActivity : ComponentActivity() {
 
     private val qcCodeScannerLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents == null) {
-            viewModel.showNoQrCodeDetected()
+            mainViewModel.showNoQrCodeDetected()
         } else {
             lifecycleScope.launch {
-                val completedTask = tasksRepository.getTaskByQrCode(result.contents)
+                val completedTask = mainViewModel.state.tasks.firstOrNull { task ->
+                    task.qrCode == result.contents
+                }
                 if (completedTask != null) {
                     val res = tasksRepository.completeTask(completedTask)
                     if (res) {
-                        viewModel.showSuccessfulTaskCompletion(completedTask)
+                        mainViewModel.showSuccessfulTaskCompletion(completedTask)
                     } else {
-                        viewModel.showTaskAlreadyFinished()
+                        mainViewModel.showTaskAlreadyFinished()
                     }
                 } else {
-                    viewModel.showNoSuchTaskExists()
+                    mainViewModel.showNoSuchTaskExists()
                 }
             }
         }

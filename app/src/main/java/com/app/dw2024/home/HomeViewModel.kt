@@ -9,7 +9,6 @@ import com.app.dw2024.R
 import com.app.dw2024.model.Event
 import com.app.dw2024.model.Task
 import com.app.dw2024.model.getTasksForDisplay
-import com.app.dw2024.repository.interfaces.EventsRepository
 import com.app.dw2024.repository.interfaces.TasksRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,25 +17,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val eventsRepository: EventsRepository,
     private val tasksRepository: TasksRepository
 ): ViewModel() {
     var state by mutableStateOf(HomeState())
         private set
-
-    init {
-        refresh()
-    }
-
-    fun refresh() {
-        viewModelScope.launch {
-            val tasks = tasksRepository.getTasks()
-            val completedTasks = tasksRepository.getCompletedTasks()
-            val events = eventsRepository.getEvents()
-            state = state.copy(tasks = getTasksForDisplay(tasks, completedTasks))
-            state = state.copy(events = events)
-        }
-    }
 
     fun onEvent(event: HomeEvent) {
         when (event) {

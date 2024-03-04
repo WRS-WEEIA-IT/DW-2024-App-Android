@@ -130,7 +130,8 @@ fun MainScreen(
     ) {
         NavigationGraph(
             navController = navController,
-            paddingValues = it
+            paddingValues = it,
+            mainViewModel = viewModel
         )
     }
 }

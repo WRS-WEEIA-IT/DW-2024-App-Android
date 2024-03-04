@@ -38,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.app.dw2024.MainViewModel
 import com.app.dw2024.R
 import com.app.dw2024.components.EventCard
 import com.app.dw2024.util.Constants
@@ -58,15 +59,13 @@ val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
 @Composable
 fun EventsScreen(
     modifier: Modifier = Modifier,
-    viewModel: EventsViewModel = hiltViewModel()
+    viewModel: EventsViewModel = hiltViewModel(),
+    mainViewModel: MainViewModel
 ) {
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true
     )
     val uriHandler = LocalUriHandler.current
-    LaunchedEffect(key1 = true) {
-        viewModel.refresh()
-    }
 
     Column(
         modifier = modifier
@@ -98,9 +97,10 @@ fun EventsScreen(
                 )
             }
         }
+        val events = listOf(mainViewModel.state.lectures, mainViewModel.state.workshops).flatten().sortedBy { it.timeStart }
         LazyColumn(
             content = {
-                items(viewModel.state.events) { event ->
+                items(events) { event ->
                     val startTimeInstant = Instant.ofEpochSecond(event.timeStart.seconds, event.timeStart.nanoseconds.toLong())
                     val endTimeInstant = Instant.ofEpochSecond(event.timeEnd.seconds, event.timeEnd.nanoseconds.toLong())
                     val startTime = LocalDateTime.ofInstant(startTimeInstant, ZoneId.systemDefault())
