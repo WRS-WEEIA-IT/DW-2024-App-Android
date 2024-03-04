@@ -65,6 +65,9 @@ fun BottomNavigationBar(
                 unselectedContentColor = Color.White,
                 selectedContentColor = DeepPurple,
                 onClick = {
+                    if (currentRoute == item.route) {
+                        return@BottomNavigationItem
+                    }
                     if (item.route == "qr_code_scanner") {
                         onQrCodeScannerClick()
                         return@BottomNavigationItem
