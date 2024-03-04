@@ -86,4 +86,7 @@ dependencies {
 
     // Zoomable
     implementation("net.engawapg.lib:zoomable:1.5.3")
+
+    // by viewModel()
+    implementation("androidx.activity:activity-ktx:1.8.2")
 }

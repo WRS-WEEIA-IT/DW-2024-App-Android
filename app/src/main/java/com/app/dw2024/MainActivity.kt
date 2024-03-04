@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -23,6 +24,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.app.dw2024.components.CustomAlertDialog
@@ -45,6 +48,8 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var tasksRepository: TasksRepository
 
+    private val viewModel by viewModels<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -66,7 +71,8 @@ class MainActivity : ComponentActivity() {
                             requestCameraPermission(this, onPermanentlyDenied = {
                                 isDialogVisible = true
                             })
-                        }
+                        },
+                        viewModel = viewModel
                     )
                     if (isDialogVisible) {
                         CustomAlertDialog(
@@ -99,19 +105,19 @@ class MainActivity : ComponentActivity() {
 
     private val qcCodeScannerLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents == null) {
-            Toast.makeText(this, "No QR code found", Toast.LENGTH_LONG).show()
+            viewModel.showNoQrCodeDetected()
         } else {
             lifecycleScope.launch {
                 val completedTask = tasksRepository.getTaskByQrCode(result.contents)
                 if (completedTask != null) {
                     val res = tasksRepository.completeTask(completedTask)
                     if (res) {
-                        Toast.makeText(this@MainActivity, "Task completed", Toast.LENGTH_LONG).show()
+                        viewModel.showSuccessfulTaskCompletion(completedTask)
                     } else {
-                        Toast.makeText(this@MainActivity, "Task already completed", Toast.LENGTH_LONG).show()
+                        viewModel.showTaskAlreadyFinished()
                     }
                 } else {
-                    Toast.makeText(this@MainActivity, "No task found", Toast.LENGTH_LONG).show()
+                    viewModel.showNoSuchTaskExists()
                 }
             }
         }

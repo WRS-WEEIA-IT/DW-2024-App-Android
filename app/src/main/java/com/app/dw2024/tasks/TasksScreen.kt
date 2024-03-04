@@ -1,5 +1,6 @@
 package com.app.dw2024.tasks
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,6 +33,7 @@ fun TasksScreen(
     viewModel: TasksViewModel = hiltViewModel()
 ) {
     LaunchedEffect(key1 = true) {
+        Log.d("LOGCAT", "Refresh!")
         viewModel.refresh()
     }
 

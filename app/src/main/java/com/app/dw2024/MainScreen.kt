@@ -2,6 +2,7 @@ package com.app.dw2024
 
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -15,6 +16,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,11 +31,13 @@ import com.app.dw2024.navigation.BottomNavigationBar
 import com.app.dw2024.navigation.NavigationGraph
 import com.app.dw2024.ui.theme.DarkBlack
 import com.app.dw2024.ui.theme.DarkGrey
+import kotlinx.coroutines.flow.collect
 
 @Composable
 fun MainScreen(
     navController: NavHostController,
-    onQrCodeScannerClick: () -> Unit = {}
+    onQrCodeScannerClick: () -> Unit = {},
+    viewModel: MainViewModel
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -43,6 +47,30 @@ fun MainScreen(
         BottomNavItem.Tasks.route,
         BottomNavItem.Info.route
     )
+
+    LaunchedEffect(key1 = true) {
+        viewModel.mainChannel.collect { event ->
+            when (event) {
+                is MainEvent.OnNoQrCodeDetected -> {
+                    // do nothing
+                }
+                is MainEvent.OnSuccessfulTaskCompletion -> {
+                    navController.navigate(BottomNavItem.Tasks.route) {
+                        launchSingleTop = true
+                        popUpTo(BottomNavItem.Events.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+                is MainEvent.OnTaskAlreadyFinished -> {
+                    Toast.makeText(context, "Task already finished", Toast.LENGTH_SHORT).show()
+                }
+                is MainEvent.OnNoSuchTaskExists -> {
+                    Toast.makeText(context, "You don't have such task", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
