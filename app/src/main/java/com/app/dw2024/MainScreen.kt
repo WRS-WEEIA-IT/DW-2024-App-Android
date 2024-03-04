@@ -38,31 +38,38 @@ fun MainScreen(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     val context = LocalContext.current
+    val screensWithTopBar = listOf(
+        BottomNavItem.Events.route,
+        BottomNavItem.Tasks.route,
+        BottomNavItem.Info.route
+    )
 
     Scaffold(
         topBar = {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(DarkGrey)
-                    .padding(vertical = 16.dp, horizontal = 12.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_logo),
-                    contentDescription = "Logo",
-                    modifier = Modifier.height(76.dp)
-                )
-                if (currentRoute == BottomNavItem.Info.route) {
-                    IconButton(
-                        modifier = Modifier.align(Alignment.CenterEnd),
-                        onClick = { context.sendMail(arrayOf("wrs@mail.com"), "I have a question") }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Email,
-                            contentDescription = null,
-                            tint = Color.White
-                        )
+            if (screensWithTopBar.contains(currentRoute)) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(DarkGrey)
+                        .padding(vertical = 16.dp, horizontal = 12.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_logo),
+                        contentDescription = "Logo",
+                        modifier = Modifier.height(76.dp)
+                    )
+                    if (currentRoute == BottomNavItem.Info.route) {
+                        IconButton(
+                            modifier = Modifier.align(Alignment.CenterEnd),
+                            onClick = { context.sendMail(arrayOf("wrs@mail.com"), "I have a question") }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Email,
+                                contentDescription = null,
+                                tint = Color.White
+                            )
+                        }
                     }
                 }
             }
