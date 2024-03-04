@@ -2,6 +2,7 @@
     <string name="app_name">DzienWydzialu2024</string>
     <string name="sign_up">Sign up</string>
     <string name="upcoming_events">Upcoming events</string>
+    <string name="upcoming_event">Upcoming event</string>
     <string name="filter">Filter</string>
     <string name="scan_qr_code_to_complete_task">Scan QR code to complete this task</string>
     <string name="available_tasks">Available tasks</string>
@@ -14,8 +15,7 @@
     <string name="you_earned_x_points">You\'ve earned %d points.</string>
     <string name="organizers">Organizers</string>
     <string name="partners">Partners</string>
-    <string name="all_events">All events</string>
-    <string name="all_tasks">All tasks</string>
+    <string name="see_all">See all</string>
     <string name="task_completed">Task completed</string>
     <string name="required_camera_access">Required camera access</string>
     <string name="camera_access_is_required_to_scan_qr_code">Camera access is required to scan QR code. Please grant camera permission in app settings.</string>

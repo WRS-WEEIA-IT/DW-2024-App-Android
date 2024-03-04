@@ -45,6 +45,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -147,9 +148,10 @@ fun HomeScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = stringResource(id = R.string.upcoming_events),
+                    text = stringResource(id = R.string.upcoming_event),
                     color = Color.White,
-                    fontSize = 18.sp,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
                     fontFamily = Montserrat
                 )
                 Row(
@@ -164,11 +166,12 @@ fun HomeScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = stringResource(id = R.string.all_events),
+                        text = stringResource(id = R.string.see_all),
                         color = Color.White,
-                        fontSize = 18.sp,
+                        fontSize = 10.sp,
                         fontFamily = Montserrat
                     )
+                    Spacer(modifier = Modifier.width(4.dp))
                     Icon(
                         modifier = Modifier.size(18.dp),
                         imageVector = Icons.Filled.PlayArrow,
@@ -220,7 +223,8 @@ fun HomeScreen(
                 Text(
                     text = stringResource(id = R.string.available_tasks),
                     color = Color.White,
-                    fontSize = 18.sp,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
                     fontFamily = Montserrat
                 )
                 Row(
@@ -235,11 +239,12 @@ fun HomeScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ){
                     Text(
-                        text = stringResource(id = R.string.all_tasks),
+                        text = stringResource(id = R.string.see_all),
                         color = Color.White,
-                        fontSize = 18.sp,
+                        fontSize = 10.sp,
                         fontFamily = Montserrat
                     )
+                    Spacer(modifier = Modifier.width(4.dp))
                     Icon(
                         modifier = Modifier.size(18.dp),
                         imageVector = Icons.Filled.PlayArrow,
