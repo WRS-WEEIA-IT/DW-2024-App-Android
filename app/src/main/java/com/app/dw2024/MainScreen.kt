@@ -33,13 +33,12 @@ import com.app.dw2024.navigation.BottomNavigationBar
 import com.app.dw2024.navigation.NavigationGraph
 import com.app.dw2024.ui.theme.DarkBlack
 import com.app.dw2024.ui.theme.DarkGrey
-import kotlinx.coroutines.flow.collect
 
 @Composable
 fun MainScreen(
     navController: NavHostController,
     onQrCodeScannerClick: () -> Unit = {},
-    viewModel: MainViewModel
+    mainViewModel: MainViewModel
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val vibrator = LocalContext.current.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
@@ -57,7 +56,7 @@ fun MainScreen(
     )
 
     LaunchedEffect(key1 = true) {
-        viewModel.mainChannel.collect { event ->
+        mainViewModel.mainChannel.collect { event ->
             when (event) {
                 is MainEvent.OnNoQrCodeDetected -> {
                     // do nothing
@@ -65,6 +64,7 @@ fun MainScreen(
                 is MainEvent.OnSuccessfulTaskCompletion -> {
                     vibrator.cancel()
                     vibrator.vibrate(successfulVibrationEffect)
+                    mainViewModel.forceTasksToRefresh()
                     navController.navigate(BottomNavItem.Tasks.route) {
                         launchSingleTop = true
                         popUpTo(BottomNavItem.Events.route) {
@@ -131,7 +131,7 @@ fun MainScreen(
         NavigationGraph(
             navController = navController,
             paddingValues = it,
-            mainViewModel = viewModel
+            mainViewModel = mainViewModel
         )
     }
 }

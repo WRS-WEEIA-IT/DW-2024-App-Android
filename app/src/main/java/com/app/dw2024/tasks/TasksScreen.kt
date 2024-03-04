@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.app.dw2024.MainViewModel
 import com.app.dw2024.R
 import com.app.dw2024.components.GainedPointsText
 import com.app.dw2024.components.TaskCard
@@ -32,13 +33,8 @@ import com.app.dw2024.ui.theme.Montserrat
 @Composable
 fun TasksScreen(
     modifier: Modifier = Modifier,
-    viewModel: TasksViewModel = hiltViewModel()
+    mainViewModel: MainViewModel
 ) {
-    LaunchedEffect(key1 = true) {
-        Log.d("LOGCAT", "Refresh!")
-        viewModel.refresh()
-    }
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -63,12 +59,12 @@ fun TasksScreen(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
-            GainedPointsText(points = viewModel.state.collectedPoints)
+            GainedPointsText(points = mainViewModel.state.collectedPoints)
         }
         Spacer(modifier = Modifier.height(12.dp))
         LazyColumn(
             content = {
-                items(viewModel.state.tasks) { task ->
+                items(mainViewModel.state.tasks) { task ->
                     TaskCard(
                         id = task.taskNumber,
                         title = task.title,

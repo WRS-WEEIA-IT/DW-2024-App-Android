@@ -1,5 +1,6 @@
 package com.app.dw2024
 
+import android.content.SharedPreferences
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.dw2024.model.Event
 import com.app.dw2024.model.Task
+import com.app.dw2024.repository.interfaces.UserRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -16,7 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    db: FirebaseFirestore,
+    private val db: FirebaseFirestore,
+    private val sharedPreferences: SharedPreferences,
+    private val userRepository: UserRepository
 ): ViewModel() {
     private val _mainChannel = Channel<MainEvent>()
     val mainChannel = _mainChannel.receiveAsFlow()
@@ -24,9 +28,9 @@ class MainViewModel @Inject constructor(
     var state by mutableStateOf(MainState())
         private set
 
-    private var lectures = mutableListOf<Event>()
-    private var workshops = mutableListOf<Event>()
-    private var tasks = mutableListOf<Task>()
+    private var lectures = mutableSetOf<Event>()
+    private var workshops = mutableSetOf<Event>()
+    private var tasks = mutableSetOf<Task>()
 
     init {
         db.collection("lectures").addSnapshotListener { value, error ->
@@ -40,7 +44,6 @@ class MainViewModel @Inject constructor(
             )
             viewModelScope.launch {
                 state = state.copy(lectures = lectures.distinct())
-                lectures.clear()  // if lectures disappear, this might be the issue
             }
         }
         db.collection("workshops").addSnapshotListener { value, error ->
@@ -54,19 +57,63 @@ class MainViewModel @Inject constructor(
             )
             viewModelScope.launch {
                 state = state.copy(workshops = workshops.distinct())
-                workshops.clear()  // if workshops disappear, this might be the issue
             }
         }
-        db.collection("tasks").get().addOnSuccessListener { event ->
+        db.collection("tasks").addSnapshotListener { value, error ->
+            if (error != null) {
+                return@addSnapshotListener
+            }
             tasks.addAll(
-                event.map { documentSnapshot ->
+                value?.map { documentSnapshot ->
                     documentSnapshot.toObject(Task::class.java)
-                }
+                } ?: emptyList()
             )
             viewModelScope.launch {
-                state = state.copy(tasks = tasks.toList())
+                state = state.copy(tasks = getTasksReadyForDisplay())
             }
         }
+    }
+
+    private fun getTasksReadyForDisplay(): List<Task> {
+        val completedTasksNumbers = sharedPreferences.getStringSet("completed_tasks", mutableSetOf())
+            ?.map { it.toInt() }
+            ?.toList()
+        val completedTasks = tasks.filter { task ->
+            completedTasksNumbers?.contains(task.taskNumber) ?: false
+        }
+        val tasksForDisplay = tasks.map { task ->
+            if (completedTasks.contains(task)) {
+                task.copy(
+                    isFinished = true,
+                )
+            } else {
+                task
+            }
+        }
+        viewModelScope.launch {
+            state = state.copy(collectedPoints = completedTasks.sumOf { it.points })
+        }
+        return tasksForDisplay
+    }
+
+    fun forceTasksToRefresh() {
+        viewModelScope.launch {
+            state = state.copy(tasks = getTasksReadyForDisplay())
+        }
+    }
+
+    fun completeTask(task: Task): Boolean {
+        val currentlyCompletedTasks = sharedPreferences.getStringSet("completed_tasks", mutableSetOf())
+        if (currentlyCompletedTasks?.contains(task.taskNumber.toString()) == true) {
+            return false
+        }
+        val newCompletedTasks = currentlyCompletedTasks?.toMutableSet()
+        newCompletedTasks?.add(task.taskNumber.toString())
+        sharedPreferences.edit().putStringSet("completed_tasks", newCompletedTasks).apply()
+        viewModelScope.launch {
+            userRepository.incrementUserPoints(task.points)
+        }
+        return true
     }
 
     fun showNoQrCodeDetected() {

@@ -252,41 +252,23 @@ fun HomeScreen(
             LazyRow(
                 modifier = Modifier.height(160.dp),
                 content = {
-                    if (viewModel.state.tasks.isEmpty()) {
-                        item {
-                            Box(
-                                modifier = Modifier
-                                    .height(160.dp)
-                                    .fillMaxWidth(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(
-                                    modifier = Modifier
-                                        .height(6.dp)
-                                        .offset(y = (-8).dp),
-                                    color = DeepPurple
-                                )
-                            }
-                        }
-                    } else {
-                        items(viewModel.state.tasks) { task ->
-                            TaskCard(
-                                modifier = Modifier.width(configuration.screenWidthDp.dp - 64.dp),
-                                id = task.taskNumber,
-                                title = task.title,
-                                description = task.description,
-                                points = task.points,
-                                isFinished = task.isFinished,
-                                qrCodeImage = R.drawable.qr_code_image,
-                                finishedImage = R.drawable.check_image,
-                                imageLabel = stringResource(id = R.string.scan_qr_code_to_complete_task),
-                                finishedImageLabel = stringResource(id = R.string.task_completed),
-                                imageSrc = task.imageSource,
-                                onClick = {
+                    items(mainViewModel.state.tasks) { task ->
+                        TaskCard(
+                            modifier = Modifier.width(configuration.screenWidthDp.dp - 64.dp),
+                            id = task.taskNumber,
+                            title = task.title,
+                            description = task.description,
+                            points = task.points,
+                            isFinished = task.isFinished,
+                            qrCodeImage = R.drawable.qr_code_image,
+                            finishedImage = R.drawable.check_image,
+                            imageLabel = stringResource(id = R.string.scan_qr_code_to_complete_task),
+                            finishedImageLabel = stringResource(id = R.string.task_completed),
+                            imageSrc = task.imageSource,
+                            onClick = {
 
-                                }
-                            )
-                        }
+                            }
+                        )
                     }
                 },
                 horizontalArrangement = Arrangement.spacedBy(10.dp),

@@ -7,4 +7,5 @@ data class MainState(
     val tasks: List<Task> = listOf(),
     val lectures: List<Event> = listOf(),
     val workshops: List<Event> = listOf(),
+    val collectedPoints: Int = 0,
 )

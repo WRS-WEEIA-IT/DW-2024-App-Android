@@ -3,9 +3,7 @@ package com.app.dw2024.di
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import com.app.dw2024.repository.impl.TasksRepositoryImpl
 import com.app.dw2024.repository.impl.UserRepositoryImpl
-import com.app.dw2024.repository.interfaces.TasksRepository
 import com.app.dw2024.repository.interfaces.UserRepository
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,16 +23,6 @@ object AppModule {
     @Singleton
     fun provideFirebaseFirestoreInstance(): FirebaseFirestore {
         return Firebase.firestore
-    }
-
-    @Provides
-    @Singleton
-    fun provideTasksRepository(
-        userRepository: UserRepository,
-        db: FirebaseFirestore,
-        sharedPreferences: SharedPreferences
-    ): TasksRepository {
-        return TasksRepositoryImpl(userRepository, db, sharedPreferences)
     }
 
     @Provides

@@ -26,7 +26,6 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.app.dw2024.components.CustomAlertDialog
-import com.app.dw2024.repository.interfaces.TasksRepository
 import com.app.dw2024.repository.interfaces.UserRepository
 import com.app.dw2024.ui.theme.DarkGrey
 import com.app.dw2024.ui.theme.DzienWydzialu2024Theme
@@ -41,9 +40,6 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var userRepository: UserRepository
-
-    @Inject
-    lateinit var tasksRepository: TasksRepository
 
     private val mainViewModel by viewModels<MainViewModel>()
 
@@ -70,7 +66,7 @@ class MainActivity : ComponentActivity() {
                                 isDialogVisible = true
                             })
                         },
-                        viewModel = mainViewModel
+                        mainViewModel = mainViewModel
                     )
                     if (isDialogVisible) {
                         CustomAlertDialog(
@@ -110,7 +106,7 @@ class MainActivity : ComponentActivity() {
                     task.qrCode == result.contents
                 }
                 if (completedTask != null) {
-                    val res = tasksRepository.completeTask(completedTask)
+                    val res = mainViewModel.completeTask(completedTask)
                     if (res) {
                         mainViewModel.showSuccessfulTaskCompletion(completedTask)
                     } else {

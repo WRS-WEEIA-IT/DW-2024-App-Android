@@ -52,7 +52,10 @@ fun NavigationGraph(
                 )
             }
             composable(BottomNavItem.Tasks.route) {
-                TasksScreen(modifier = Modifier.padding(paddingValues))
+                TasksScreen(
+                    modifier = Modifier.padding(paddingValues),
+                    mainViewModel = mainViewModel
+                )
             }
             composable(BottomNavItem.Info.route) {
                 InfoScreen(modifier = Modifier.padding(paddingValues))
