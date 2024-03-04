@@ -2,6 +2,7 @@ package com.app.dw2024.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -47,11 +48,12 @@ fun EventCard(
     onClick: () -> Unit = {}
 ) {
     Card(
-        modifier = modifier.height(160.dp),
+        modifier = modifier
+            .height(160.dp)
+            .clickable(enabled = false, onClick = {}),
         shape = RoundedCornerShape(20.dp),
         elevation = 4.dp,
         backgroundColor = Color.Transparent,
-        onClick = onClick
     ) {
         Box(
             modifier = Modifier.fillMaxSize()
@@ -126,7 +128,7 @@ fun EventCard(
                             )
                         }
                         GradientButton(
-                            onClick = {  },
+                            onClick = onClick,
                             text = stringResource(id = R.string.sign_up),
                             fontSize = 9.sp,
                         )

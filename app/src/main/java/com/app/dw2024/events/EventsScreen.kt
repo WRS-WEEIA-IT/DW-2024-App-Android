@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -46,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.dw2024.R
 import com.app.dw2024.components.EventCard
+import com.app.dw2024.constant.Constants
 import com.app.dw2024.ui.theme.DarkGrey
 import net.engawapg.lib.zoomable.rememberZoomState
 import net.engawapg.lib.zoomable.zoomable
@@ -67,6 +69,7 @@ fun EventsScreen(
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true
     )
+    val uriHandler = LocalUriHandler.current
     LaunchedEffect(key1 = true) {
         viewModel.refresh()
     }
@@ -113,7 +116,10 @@ fun EventsScreen(
                         time = time,
                         eventType = event.type,
                         eventTitle = event.title,
-                        eventPlace = event.hall
+                        eventPlace = event.hall,
+                        onClick = {
+                            uriHandler.openUri(Constants.FORMS_URL)
+                        }
                     )
                 }
                 item { Spacer(modifier = Modifier.height(1.dp)) }

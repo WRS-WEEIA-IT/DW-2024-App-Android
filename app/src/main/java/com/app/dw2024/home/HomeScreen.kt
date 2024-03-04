@@ -42,6 +42,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -51,6 +52,9 @@ import androidx.navigation.NavController
 import com.app.dw2024.R
 import com.app.dw2024.components.EventCard
 import com.app.dw2024.components.TaskCard
+import com.app.dw2024.constant.Constants
+import com.app.dw2024.events.EventsEvent
+import com.app.dw2024.events.EventsScreen
 import com.app.dw2024.events.dateFormatter
 import com.app.dw2024.events.timeFormatter
 import com.app.dw2024.navigation.BottomNavItem
@@ -71,6 +75,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val configuration = LocalConfiguration.current
+    val uriHandler = LocalUriHandler.current
     val pagerState = rememberPagerState { viewModel.state.pagerImages.size }
     var currentPage by remember { mutableIntStateOf(0) }
 
@@ -196,7 +201,10 @@ fun HomeScreen(
                         time = time,
                         eventType = event.type,
                         eventTitle = event.title,
-                        eventPlace = event.hall
+                        eventPlace = event.hall,
+                        onClick = {
+                            uriHandler.openUri(Constants.FORMS_URL)
+                        }
                     )
                 }
             }
