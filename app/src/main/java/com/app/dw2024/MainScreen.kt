@@ -2,6 +2,8 @@ package com.app.dw2024
 
 import android.content.Context
 import android.content.Intent
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -40,12 +42,18 @@ fun MainScreen(
     viewModel: MainViewModel
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val vibrator = LocalContext.current.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     val currentRoute = navBackStackEntry?.destination?.route
     val context = LocalContext.current
     val screensWithTopBar = listOf(
         BottomNavItem.Events.route,
         BottomNavItem.Tasks.route,
         BottomNavItem.Info.route
+    )
+    val successfulVibrationEffect = VibrationEffect.createOneShot(800, VibrationEffect.DEFAULT_AMPLITUDE)
+    val failureVibrationEffect = VibrationEffect.createWaveform(
+        longArrayOf(0, 400, 200, 400),
+        -1
     )
 
     LaunchedEffect(key1 = true) {
@@ -55,6 +63,8 @@ fun MainScreen(
                     // do nothing
                 }
                 is MainEvent.OnSuccessfulTaskCompletion -> {
+                    vibrator.cancel()
+                    vibrator.vibrate(successfulVibrationEffect)
                     navController.navigate(BottomNavItem.Tasks.route) {
                         launchSingleTop = true
                         popUpTo(BottomNavItem.Events.route) {
@@ -63,9 +73,13 @@ fun MainScreen(
                     }
                 }
                 is MainEvent.OnTaskAlreadyFinished -> {
+                    vibrator.cancel()
+                    vibrator.vibrate(failureVibrationEffect)
                     Toast.makeText(context, "Task already finished", Toast.LENGTH_SHORT).show()
                 }
                 is MainEvent.OnNoSuchTaskExists -> {
+                    vibrator.cancel()
+                    vibrator.vibrate(failureVibrationEffect)
                     Toast.makeText(context, "You don't have such task", Toast.LENGTH_SHORT).show()
                 }
             }
