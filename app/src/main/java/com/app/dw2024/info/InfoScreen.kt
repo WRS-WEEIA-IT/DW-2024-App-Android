@@ -125,7 +125,7 @@ fun InfoScreen(
                     shape = RoundedCornerShape(100.dp)
                 )
                 .padding(horizontal = 16.dp, vertical = 12.dp),
-            text = stringResource(id = R.string.you_earned_x_points, viewModel.state.collectedPoints),
+            text = stringResource(id = R.string.you_earned_x_points, mainViewModel.state.collectedPoints),
             color = Color.White,
             fontSize = 12.sp,
             fontWeight = FontWeight.SemiBold,

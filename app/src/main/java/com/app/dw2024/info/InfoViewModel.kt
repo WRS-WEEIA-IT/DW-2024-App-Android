@@ -26,21 +26,6 @@ class InfoViewModel @Inject constructor(
             state = state.copy(
                 userId = userRepository.getUserId().toString(),
             )
-            state = state.copy(
-                collectedPoints = userRepository.getUserInfo()?.points ?: -1
-            )
-        }
-    }
-
-    fun onEvent(event: InfoEvent) {
-        when (event) {
-            is InfoEvent.OnFlagClick -> {
-
-            }
-
-            is InfoEvent.OnPointsClick -> {
-
-            }
         }
     }
 }
