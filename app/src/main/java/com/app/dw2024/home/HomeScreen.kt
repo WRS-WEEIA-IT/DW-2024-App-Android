@@ -253,7 +253,7 @@ fun HomeScreen(
                 }
             }
             Spacer(modifier = Modifier.height(12.dp))
-            val availableTasks = mainViewModel.state.tasks.filter { !it.isFinished }
+            val availableTasks = mainViewModel.state.tasks.filter { !it.isFinished }.sortedBy { it.taskId }
             if (mainViewModel.state.tasks.isNotEmpty() && availableTasks.isEmpty()) {
                 TaskCard(
                     modifier = Modifier.fillMaxWidth(),

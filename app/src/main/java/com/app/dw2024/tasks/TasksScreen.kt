@@ -64,9 +64,10 @@ fun TasksScreen(
             GainedPointsText(points = mainViewModel.state.collectedPoints)
         }
         Spacer(modifier = Modifier.height(12.dp))
+        val tasks = mainViewModel.state.tasks.sortedBy { it.taskId }
         LazyColumn(
             content = {
-                items(mainViewModel.state.tasks) { task ->
+                items(tasks) { task ->
                     TaskCard(
                         id = task.taskId,
                         title = task.title,
