@@ -5,6 +5,7 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -21,31 +22,35 @@ fun NavigationGraph(
     navController:  NavHostController,
     paddingValues: PaddingValues
 ) {
-    NavHost(
-        modifier = Modifier.background(DarkBlack),
-        navController = navController,
-        startDestination = BottomNavItem.Home.route,
-        enterTransition = {
-            EnterTransition.None
-        },
-        exitTransition = {
-            ExitTransition.None
-        }
+    Scaffold(
+        modifier = Modifier.background(DarkBlack)
     ) {
-        composable(BottomNavItem.Home.route) {
-            HomeScreen(
-                navController = navController,
-                modifier = Modifier.padding(paddingValues)
-            )
-        }
-        composable(BottomNavItem.Events.route) {
-            EventsScreen(modifier = Modifier.padding(paddingValues))
-        }
-        composable(BottomNavItem.Tasks.route) {
-            TasksScreen(modifier = Modifier.padding(paddingValues))
-        }
-        composable(BottomNavItem.Info.route) {
-            InfoScreen(modifier = Modifier.padding(paddingValues))
+        NavHost(
+            modifier = Modifier.background(DarkBlack).padding(it),
+            navController = navController,
+            startDestination = BottomNavItem.Home.route,
+            enterTransition = {
+                EnterTransition.None
+            },
+            exitTransition = {
+                ExitTransition.None
+            }
+        ) {
+            composable(BottomNavItem.Home.route) {
+                HomeScreen(
+                    navController = navController,
+                    modifier = Modifier.padding(paddingValues)
+                )
+            }
+            composable(BottomNavItem.Events.route) {
+                EventsScreen(modifier = Modifier.padding(paddingValues))
+            }
+            composable(BottomNavItem.Tasks.route) {
+                TasksScreen(modifier = Modifier.padding(paddingValues))
+            }
+            composable(BottomNavItem.Info.route) {
+                InfoScreen(modifier = Modifier.padding(paddingValues))
+            }
         }
     }
 }
