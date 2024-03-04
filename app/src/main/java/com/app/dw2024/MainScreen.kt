@@ -62,7 +62,7 @@ fun MainScreen(
                     if (currentRoute == BottomNavItem.Info.route) {
                         IconButton(
                             modifier = Modifier.align(Alignment.CenterEnd),
-                            onClick = { context.sendMail(arrayOf("wrs@mail.com"), "I have a question") }
+                            onClick = { context.sendMail(arrayOf("dzien.weeia@samorzad.p.lodz.pl"), "") }
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.Email,
