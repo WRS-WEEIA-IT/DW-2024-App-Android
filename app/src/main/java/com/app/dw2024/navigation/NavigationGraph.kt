@@ -1,5 +1,7 @@
 package com.app.dw2024.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -22,7 +24,13 @@ fun NavigationGraph(
     NavHost(
         modifier = Modifier.background(DarkBlack),
         navController = navController,
-        startDestination = BottomNavItem.Home.route
+        startDestination = BottomNavItem.Home.route,
+        enterTransition = {
+            EnterTransition.None
+        },
+        exitTransition = {
+            ExitTransition.None
+        }
     ) {
         composable(BottomNavItem.Home.route) {
             HomeScreen(
