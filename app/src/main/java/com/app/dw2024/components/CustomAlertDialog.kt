@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.app.dw2024.ui.theme.DarkBlack
+import com.app.dw2024.ui.theme.Montserrat
 import com.app.dw2024.ui.theme.PurpleGradient
 
 @Composable
@@ -71,7 +72,8 @@ fun CustomAlertDialog(
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
                     textAlign = TextAlign.Center,
-                    color = Color.White
+                    color = Color.White,
+                    fontFamily = Montserrat
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
@@ -79,7 +81,8 @@ fun CustomAlertDialog(
                     style = MaterialTheme.typography.body1,
                     fontSize = 14.sp,
                     textAlign = TextAlign.Center,
-                    color = Color.White
+                    color = Color.White,
+                    fontFamily = Montserrat
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Row(

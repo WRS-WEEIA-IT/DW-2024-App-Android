@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.app.dw2024.R
 import com.app.dw2024.ui.theme.CardPurpleGradient
+import com.app.dw2024.ui.theme.Montserrat
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -86,7 +87,8 @@ fun EventCard(
                             color = Color.White,
                             fontSize = 10.sp,
                             fontWeight = FontWeight(500),
-                            letterSpacing = 0.3.sp
+                            letterSpacing = 0.3.sp,
+                            fontFamily = Montserrat
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
@@ -94,7 +96,8 @@ fun EventCard(
                             color = Color.White,
                             fontSize = 14.sp,
                             fontWeight = FontWeight(600),
-                            letterSpacing = 0.3.sp
+                            letterSpacing = 0.3.sp,
+                            fontFamily = Montserrat
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
@@ -102,7 +105,8 @@ fun EventCard(
                             color = Color.White,
                             fontSize = 12.sp,
                             fontWeight = FontWeight(300),
-                            letterSpacing = 0.3.sp
+                            letterSpacing = 0.3.sp,
+                            fontFamily = Montserrat
                         )
                     }
                     Spacer(modifier = Modifier.width(8.dp))
@@ -118,13 +122,15 @@ fun EventCard(
                                 text = date,
                                 color = Color.White,
                                 fontSize = 10.sp,
-                                textAlign = TextAlign.End
+                                textAlign = TextAlign.End,
+                                fontFamily = Montserrat
                             )
                             Text(
                                 text = time,
                                 color = Color.White,
                                 fontSize = 10.sp,
-                                textAlign = TextAlign.End
+                                textAlign = TextAlign.End,
+                                fontFamily = Montserrat
                             )
                         }
                         GradientButton(

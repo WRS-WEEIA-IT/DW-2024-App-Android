@@ -26,6 +26,7 @@ import com.app.dw2024.R
 import com.app.dw2024.components.GainedPointsText
 import com.app.dw2024.components.TaskCard
 import com.app.dw2024.ui.theme.DarkGrey
+import com.app.dw2024.ui.theme.Montserrat
 
 @Composable
 fun TasksScreen(
@@ -52,6 +53,7 @@ fun TasksScreen(
                 text = stringResource(id = R.string.available_tasks),
                 color = Color.White,
                 fontSize = 18.sp,
+                fontFamily = Montserrat
             )
         }
         Spacer(modifier = Modifier.height(12.dp))

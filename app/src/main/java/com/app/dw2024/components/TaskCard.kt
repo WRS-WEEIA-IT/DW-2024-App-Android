@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import com.app.dw2024.R
 import com.app.dw2024.ui.theme.BrightPurple
 import com.app.dw2024.ui.theme.CardPurpleGradient
+import com.app.dw2024.ui.theme.Montserrat
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -106,7 +107,8 @@ fun TaskCard(
                             color = Color.White,
                             fontSize = 8.sp,
                             fontWeight = FontWeight.SemiBold,
-                            letterSpacing = 0.2.sp
+                            letterSpacing = 0.2.sp,
+                            fontFamily = Montserrat
                         )
                         Spacer(modifier = Modifier.height(6.dp))
                         Column {
@@ -115,7 +117,8 @@ fun TaskCard(
                                 color = Color.White,
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight(500),
-                                letterSpacing = 0.3.sp
+                                letterSpacing = 0.3.sp,
+                                fontFamily = Montserrat
                             )
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
@@ -123,7 +126,8 @@ fun TaskCard(
                                 color = Color.White,
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight(600),
-                                letterSpacing = 0.3.sp
+                                letterSpacing = 0.3.sp,
+                                fontFamily = Montserrat
                             )
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
@@ -132,7 +136,8 @@ fun TaskCard(
                                 color = Color.White,
                                 fontSize = 9.sp,
                                 fontWeight = FontWeight(300),
-                                letterSpacing = 0.3.sp
+                                letterSpacing = 0.3.sp,
+                                fontFamily = Montserrat
                             )
                         }
                     }
@@ -156,6 +161,7 @@ fun TaskCard(
                             color = Color.White,
                             fontSize = 8.sp,
                             fontWeight = FontWeight(300),
+                            fontFamily = Montserrat
                         )
                     }
                 }

@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.dw2024.R
 import com.app.dw2024.ui.theme.DarkGrey
+import com.app.dw2024.ui.theme.Montserrat
 import com.app.dw2024.ui.theme.PurpleGradient
 
 @Composable
@@ -55,6 +56,7 @@ fun InfoScreen(
                 text = stringResource(id = R.string.information),
                 color = Color.White,
                 fontSize = 18.sp,
+                fontFamily = Montserrat
             )
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -62,25 +64,29 @@ fun InfoScreen(
             text = stringResource(id = R.string.app_id, viewModel.state.userId ?: "0"),
             color = Color.Gray,
             fontSize = 15.sp,
+            fontFamily = Montserrat
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = stringResource(id = R.string.hello_welcome_to_department_day_app),
             color = Color.White,
             fontSize = 18.sp,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            fontFamily = Montserrat
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = stringResource(id = R.string.nice_to_see_you),
             color = Color.Gray,
             fontSize = 15.sp,
+            fontFamily = Montserrat
         )
         Text(
             text = stringResource(id = R.string.complete_tasks_earn_points_claim_rewards),
             color = Color.Gray,
             fontSize = 15.sp,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            fontFamily = Montserrat
         )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
@@ -97,13 +103,15 @@ fun InfoScreen(
             color = Color.White,
             fontSize = 18.sp,
             fontWeight = FontWeight.SemiBold,
-            letterSpacing = 0.2.sp
+            letterSpacing = 0.2.sp,
+            fontFamily = Montserrat
         )
         Spacer(modifier = Modifier.height(28.dp))
         Text(
             text = stringResource(id = R.string.organizers),
             color = Color.White,
             fontSize = 18.sp,
+            fontFamily = Montserrat
         )
         Spacer(modifier = Modifier.height(12.dp))
         Row(
@@ -114,12 +122,13 @@ fun InfoScreen(
             Image(painter = painterResource(id = R.drawable.weeia_logo), contentDescription = null)
             Image(painter = painterResource(id = R.drawable.wrs_weeia_logo), contentDescription = null)
         }
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(
-            text = stringResource(id = R.string.partners),
-            color = Color.White,
-            fontSize = 18.sp,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
+//        Spacer(modifier = Modifier.height(20.dp))
+//        Text(
+//            text = stringResource(id = R.string.partners),
+//            color = Color.White,
+//            fontSize = 18.sp,
+//            fontFamily = Montserrat
+//        )
+//        Spacer(modifier = Modifier.height(8.dp))
     }
 }

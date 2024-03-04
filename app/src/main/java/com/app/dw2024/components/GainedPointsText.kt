@@ -11,6 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.app.dw2024.R
 import com.app.dw2024.ui.theme.BrightPurple
+import com.app.dw2024.ui.theme.Montserrat
 
 @Composable
 fun GainedPointsText(
@@ -27,7 +28,8 @@ fun GainedPointsText(
             text = firstPart,
             color = Color.White,
             fontSize = 18.sp,
-            letterSpacing = 0.3.sp
+            letterSpacing = 0.3.sp,
+            fontFamily = Montserrat
         )
         Text(
             modifier = modifier,
@@ -35,14 +37,16 @@ fun GainedPointsText(
             color = BrightPurple,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
-            letterSpacing = 0.3.sp
+            letterSpacing = 0.3.sp,
+            fontFamily = Montserrat
         )
         Text(
             modifier = modifier,
             text = secondPart,
             color = Color.White,
             fontSize = 18.sp,
-            letterSpacing = 0.3.sp
+            letterSpacing = 0.3.sp,
+            fontFamily = Montserrat
         )
     }
 }

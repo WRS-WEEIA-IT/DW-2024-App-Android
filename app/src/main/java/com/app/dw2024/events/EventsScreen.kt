@@ -52,6 +52,7 @@ import com.app.dw2024.R
 import com.app.dw2024.components.EventCard
 import com.app.dw2024.constant.Constants
 import com.app.dw2024.ui.theme.DarkGrey
+import com.app.dw2024.ui.theme.Montserrat
 import net.engawapg.lib.zoomable.rememberZoomState
 import net.engawapg.lib.zoomable.zoomable
 import java.time.Instant
@@ -93,6 +94,7 @@ fun EventsScreen(
                 text = stringResource(id = R.string.upcoming_events),
                 color = Color.White,
                 fontSize = 18.sp,
+                fontFamily = Montserrat
             )
             IconButton(onClick = {
                 viewModel.onEvent(EventsEvent.OnBottomModalSheetShow)
@@ -184,7 +186,8 @@ fun EventsScreen(
                         },
                         color = Color.White,
                         fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold
+                        fontWeight = FontWeight.SemiBold,
+                        fontFamily = Montserrat
                     )
                     IconButton(onClick = {
                         viewModel.onEvent(EventsEvent.OnMapLayerClick)

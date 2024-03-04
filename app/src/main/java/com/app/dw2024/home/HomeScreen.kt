@@ -61,6 +61,7 @@ import com.app.dw2024.navigation.BottomNavItem
 import com.app.dw2024.ui.theme.CardPurpleGradient
 import com.app.dw2024.ui.theme.DarkGrey
 import com.app.dw2024.ui.theme.DeepPurple
+import com.app.dw2024.ui.theme.Montserrat
 import com.google.api.Distribution.BucketOptions.Linear
 import kotlinx.coroutines.delay
 import java.time.Instant
@@ -149,6 +150,7 @@ fun HomeScreen(
                     text = stringResource(id = R.string.upcoming_events),
                     color = Color.White,
                     fontSize = 18.sp,
+                    fontFamily = Montserrat
                 )
                 Row(
                     modifier = Modifier.clickable {
@@ -165,6 +167,7 @@ fun HomeScreen(
                         text = stringResource(id = R.string.all_events),
                         color = Color.White,
                         fontSize = 18.sp,
+                        fontFamily = Montserrat
                     )
                     Icon(
                         modifier = Modifier.size(18.dp),
@@ -218,6 +221,7 @@ fun HomeScreen(
                     text = stringResource(id = R.string.available_tasks),
                     color = Color.White,
                     fontSize = 18.sp,
+                    fontFamily = Montserrat
                 )
                 Row(
                     modifier = Modifier.clickable {
@@ -234,6 +238,7 @@ fun HomeScreen(
                         text = stringResource(id = R.string.all_tasks),
                         color = Color.White,
                         fontSize = 18.sp,
+                        fontFamily = Montserrat
                     )
                     Icon(
                         modifier = Modifier.size(18.dp),

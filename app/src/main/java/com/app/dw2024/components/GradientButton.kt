@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
+import com.app.dw2024.ui.theme.Montserrat
 
 @Composable
 fun GradientButton(
@@ -57,7 +58,8 @@ fun GradientButton(
             letterSpacing = 1.sp,
             fontSize = fontSize,
             textAlign = TextAlign.Center,
-            color = Color.White
+            color = Color.White,
+            fontFamily = Montserrat
         )
     }
 }
