@@ -20,7 +20,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.DzienWydzialu2024">
+            android:theme="@style/Theme.SplashDW">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

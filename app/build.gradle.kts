@@ -89,4 +89,7 @@ dependencies {
 
     // by viewModel()
     implementation("androidx.activity:activity-ktx:1.8.2")
+
+    // splash
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }
