@@ -80,7 +80,7 @@ class MainViewModel @Inject constructor(
             ?.map { it.toInt() }
             ?.toList()
         val completedTasks = tasks.filter { task ->
-            completedTasksNumbers?.contains(task.taskNumber) ?: false
+            completedTasksNumbers?.contains(task.taskId) ?: false
         }
         val tasksForDisplay = tasks.map { task ->
             if (completedTasks.contains(task)) {
@@ -105,11 +105,11 @@ class MainViewModel @Inject constructor(
 
     fun completeTask(task: Task): Boolean {
         val currentlyCompletedTasks = sharedPreferences.getStringSet("completed_tasks", mutableSetOf())
-        if (currentlyCompletedTasks?.contains(task.taskNumber.toString()) == true) {
+        if (currentlyCompletedTasks?.contains(task.taskId.toString()) == true) {
             return false
         }
         val newCompletedTasks = currentlyCompletedTasks?.toMutableSet()
-        newCompletedTasks?.add(task.taskNumber.toString())
+        newCompletedTasks?.add(task.taskId.toString())
         sharedPreferences.edit().putStringSet("completed_tasks", newCompletedTasks).apply()
         viewModelScope.launch {
             userRepository.incrementUserPoints(task.points)

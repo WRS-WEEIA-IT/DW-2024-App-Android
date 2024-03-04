@@ -120,11 +120,11 @@ fun EventsScreen(
                         time = time,
                         eventType = event.type,
                         eventTitle = event.title,
-                        eventPlace = event.hall,
+                        eventPlace = event.room,
                         onClick = {
                             uriHandler.openUri(Constants.FORMS_URL)
                         },
-                        imageSrc = event.imageSource
+                        imageSrc = event.imageSrc
                     )
                 }
                 item { Spacer(modifier = Modifier.height(1.dp)) }

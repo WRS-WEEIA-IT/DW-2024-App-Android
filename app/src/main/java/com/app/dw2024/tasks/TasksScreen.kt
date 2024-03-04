@@ -1,6 +1,5 @@
 package com.app.dw2024.tasks
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.dw2024.MainViewModel
 import com.app.dw2024.R
 import com.app.dw2024.components.GainedPointsText
@@ -70,7 +68,7 @@ fun TasksScreen(
             content = {
                 items(mainViewModel.state.tasks) { task ->
                     TaskCard(
-                        id = task.taskNumber,
+                        id = task.taskId,
                         title = task.title,
                         description = task.description,
                         points = task.points,
@@ -79,7 +77,7 @@ fun TasksScreen(
                         finishedImage = R.drawable.check_image,
                         imageLabel = stringResource(id = R.string.scan_qr_code_to_complete_task),
                         finishedImageLabel = stringResource(id = R.string.task_completed),
-                        imageSrc = task.imageSource,
+                        imageSrc = task.imageSrc,
                         onClick = {
 
                         },

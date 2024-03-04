@@ -196,11 +196,11 @@ fun HomeScreen(
                         time = time,
                         eventType = event.type,
                         eventTitle = event.title,
-                        eventPlace = event.hall,
+                        eventPlace = event.room,
                         onClick = {
                             uriHandler.openUri(Constants.FORMS_URL)
                         },
-                        imageSrc = event.imageSource
+                        imageSrc = event.imageSrc
                     )
                 } else {
                     Box(
@@ -278,7 +278,7 @@ fun HomeScreen(
                         items(availableTasks) { task ->
                             TaskCard(
                                 modifier = Modifier.width(configuration.screenWidthDp.dp - 64.dp),
-                                id = task.taskNumber,
+                                id = task.taskId,
                                 title = task.title,
                                 description = task.description,
                                 points = task.points,
@@ -287,7 +287,7 @@ fun HomeScreen(
                                 finishedImage = R.drawable.check_image,
                                 imageLabel = stringResource(id = R.string.scan_qr_code_to_complete_task),
                                 finishedImageLabel = stringResource(id = R.string.task_completed),
-                                imageSrc = task.imageSource,
+                                imageSrc = task.imageSrc,
                                 onClick = {
 
                                 }
