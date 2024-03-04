@@ -89,7 +89,7 @@ fun TaskCard(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(Color.Transparent)
-                        .padding(horizontal = 25.dp, vertical = 20.dp),
+                        .padding(end = 25.dp, top = 15.dp, start = 15.dp, bottom = 20.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
@@ -110,7 +110,7 @@ fun TaskCard(
                                         ),
                                         shape = RoundedCornerShape(100.dp)
                                     )
-                                    .padding(horizontal = 15.dp, vertical = 5.5.dp),
+                                    .padding(horizontal = 15.dp, vertical = 6.5.dp),
                                 text = "$points PUNKTÓW",
                                 color = Color.White,
                                 fontSize = 8.sp,
@@ -126,27 +126,26 @@ fun TaskCard(
                                     text = "Zadanie $id",
                                     color = Color.White,
                                     fontSize = 10.sp,
-                                    fontWeight = FontWeight(500),
+                                    fontWeight = FontWeight.Medium,
                                     letterSpacing = 0.3.sp,
                                     fontFamily = Montserrat
                                 )
                             }
-                            Spacer(modifier = Modifier.height(4.dp))
+                            Spacer(modifier = Modifier.height(3.dp))
                             Text(
                                 text = title,
                                 color = Color.White,
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight(600),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.SemiBold,
                                 letterSpacing = 0.3.sp,
                                 fontFamily = Montserrat
                             )
-                            Spacer(modifier = Modifier.height(4.dp))
+                            Spacer(modifier = Modifier.height(3.dp))
                             Text(
-                                modifier = Modifier.verticalScroll(rememberScrollState()),
                                 text = description,
                                 color = Color.White,
                                 fontSize = 9.sp,
-                                fontWeight = FontWeight(300),
+                                fontWeight = FontWeight.Light,
                                 letterSpacing = 0.3.sp,
                                 fontFamily = Montserrat
                             )
