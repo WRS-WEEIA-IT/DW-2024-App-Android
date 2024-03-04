@@ -10,9 +10,10 @@
     <string name="currently_you_have_x_points">Currently you have %d points</string>
     <string name="information">Information</string>
     <string name="app_id">APP ID: %s</string>
+    <string name="user_id">USER ID: %s</string>
     <string name="hello_welcome_to_department_day_app">Hello! Welcome to the EEIA Department Day application!</string>
     <string name="nice_to_see_you">Nice to see you :)</string>
-    <string name="complete_tasks_earn_points_claim_rewards">Complete tasks, collect points and claim rewards!</string>
+    <string name="complete_tasks_earn_points_claim_rewards">Collect points by scanning QR codes during Dzień Wydziału on 20th March 2024</string>
     <string name="you_earned_x_points">You\'ve earned %d points.</string>
     <string name="organizers">Organizers</string>
     <string name="partners">Partners</string>
@@ -23,4 +24,8 @@
     <string name="map">Map</string>
     <string name="ground_floor">Ground floor</string>
     <string name="first_floor">First floor</string>
+    <string name="hi_welcome_in_dw_app">Hi! Welcome in DW APP!</string>
+    <string name="rules_are_simple">Rules are simple</string>
+    <string name="we_will_inform_students">We will inform students who have the most points after the event in the info section</string>
+    <string name="wrs_weeia_is_the_only_sponsor_of_any_rewards">WRS WEEIA is the only sponsor of any rewards</string>
 </resources>

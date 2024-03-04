@@ -56,35 +56,55 @@ fun InfoScreen(
                 text = stringResource(id = R.string.information),
                 color = Color.White,
                 fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
                 fontFamily = Montserrat
             )
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = stringResource(id = R.string.app_id, viewModel.state.userId ?: "0"),
-            color = Color.Gray,
-            fontSize = 15.sp,
+            text = stringResource(id = R.string.user_id, viewModel.state.userId ?: "0"),
+            color = Color.White,
+            fontSize = 14.sp,
             fontFamily = Montserrat
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = stringResource(id = R.string.hello_welcome_to_department_day_app),
+            text = stringResource(id = R.string.hi_welcome_in_dw_app),
             color = Color.White,
-            fontSize = 18.sp,
+            fontSize = 16.sp,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Medium,
+            fontFamily = Montserrat
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(
+            text = stringResource(id = R.string.rules_are_simple),
+            color = Color.White,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = Montserrat
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(
+            text = stringResource(id = R.string.complete_tasks_earn_points_claim_rewards),
+            color = Color.White,
+            fontSize = 12.sp,
             textAlign = TextAlign.Center,
             fontFamily = Montserrat
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(6.dp))
         Text(
-            text = stringResource(id = R.string.nice_to_see_you),
-            color = Color.Gray,
-            fontSize = 15.sp,
+            text = stringResource(id = R.string.we_will_inform_students),
+            color = Color.White,
+            fontSize = 12.sp,
+            textAlign = TextAlign.Center,
             fontFamily = Montserrat
         )
+        Spacer(modifier = Modifier.height(6.dp))
         Text(
-            text = stringResource(id = R.string.complete_tasks_earn_points_claim_rewards),
-            color = Color.Gray,
-            fontSize = 15.sp,
+            text = stringResource(id = R.string.wrs_weeia_is_the_only_sponsor_of_any_rewards),
+            color = Color.Red,
+            fontSize = 12.sp,
             textAlign = TextAlign.Center,
             fontFamily = Montserrat
         )
@@ -98,10 +118,10 @@ fun InfoScreen(
                     ),
                     shape = RoundedCornerShape(100.dp)
                 )
-                .padding(horizontal = 26.dp, vertical = 12.dp),
+                .padding(horizontal = 16.dp, vertical = 12.dp),
             text = stringResource(id = R.string.you_earned_x_points, viewModel.state.collectedPoints),
             color = Color.White,
-            fontSize = 18.sp,
+            fontSize = 12.sp,
             fontWeight = FontWeight.SemiBold,
             letterSpacing = 0.2.sp,
             fontFamily = Montserrat
@@ -110,7 +130,8 @@ fun InfoScreen(
         Text(
             text = stringResource(id = R.string.organizers),
             color = Color.White,
-            fontSize = 18.sp,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
             fontFamily = Montserrat
         )
         Spacer(modifier = Modifier.height(12.dp))
