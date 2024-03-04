@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -22,7 +21,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -57,7 +55,6 @@ import com.app.dw2024.events.timeFormatter
 import com.app.dw2024.navigation.BottomNavItem
 import com.app.dw2024.ui.theme.CardPurpleGradient
 import com.app.dw2024.ui.theme.DarkGrey
-import com.app.dw2024.ui.theme.DeepPurple
 import com.app.dw2024.ui.theme.Montserrat
 import kotlinx.coroutines.delay
 import java.time.Instant
@@ -249,30 +246,50 @@ fun HomeScreen(
                 }
             }
             Spacer(modifier = Modifier.height(12.dp))
-            LazyRow(
-                modifier = Modifier.height(160.dp),
-                content = {
-                    items(mainViewModel.state.tasks) { task ->
-                        TaskCard(
-                            modifier = Modifier.width(configuration.screenWidthDp.dp - 64.dp),
-                            id = task.taskNumber,
-                            title = task.title,
-                            description = task.description,
-                            points = task.points,
-                            isFinished = task.isFinished,
-                            qrCodeImage = R.drawable.qr_code_image,
-                            finishedImage = R.drawable.check_image,
-                            imageLabel = stringResource(id = R.string.scan_qr_code_to_complete_task),
-                            finishedImageLabel = stringResource(id = R.string.task_completed),
-                            imageSrc = task.imageSource,
-                            onClick = {
+            val availableTasks = mainViewModel.state.tasks.filter { !it.isFinished }
+            if (mainViewModel.state.tasks.isNotEmpty() && availableTasks.isEmpty()) {
+                TaskCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    id = -1,
+                    title = "Udało Ci się ukończyć wszystkie zadania.",
+                    description = "Gratulacje :)",
+                    points = -1,
+                    isFinished = false,
+                    qrCodeImage = R.drawable.qr_code_image,
+                    finishedImage = R.drawable.check_image,
+                    imageLabel = stringResource(id = R.string.scan_qr_code_to_complete_task),
+                    finishedImageLabel = stringResource(id = R.string.task_completed),
+                    imageSrc = "all_tasks_finished_background",
+                    onClick = {
 
-                            }
-                        )
                     }
-                },
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-            )
+                )
+            } else {
+                LazyRow(
+                    modifier = Modifier.height(160.dp),
+                    content = {
+                        items(availableTasks) { task ->
+                            TaskCard(
+                                modifier = Modifier.width(configuration.screenWidthDp.dp - 64.dp),
+                                id = task.taskNumber,
+                                title = task.title,
+                                description = task.description,
+                                points = task.points,
+                                isFinished = task.isFinished,
+                                qrCodeImage = R.drawable.qr_code_image,
+                                finishedImage = R.drawable.check_image,
+                                imageLabel = stringResource(id = R.string.scan_qr_code_to_complete_task),
+                                finishedImageLabel = stringResource(id = R.string.task_completed),
+                                imageSrc = task.imageSource,
+                                onClick = {
+
+                                }
+                            )
+                        }
+                    },
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                )
+            }
             Spacer(modifier = Modifier.height(8.dp))
         }
     }

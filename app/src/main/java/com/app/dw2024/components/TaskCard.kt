@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -60,11 +61,14 @@ fun TaskCard(
     val iconLabel = if (isFinished) finishedImageLabel else imageLabel
 
     Card(
-        modifier = modifier.height(160.dp),
+        modifier = modifier
+            .height(160.dp)
+            .clickable(false) {
+                onClick()
+            },
         shape = RoundedCornerShape(20.dp),
         elevation = 4.dp,
-        backgroundColor = Color.Transparent,
-        onClick = onClick
+        backgroundColor = Color.Transparent
     ) {
         Box(
             modifier = Modifier.fillMaxSize()
@@ -96,33 +100,37 @@ fun TaskCard(
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.SpaceBetween,
                     ) {
-                        Text(
-                            modifier = Modifier
-                                .border(
-                                    border = BorderStroke(
-                                        width = 1.2.dp,
-                                        color = BrightPurple
-                                    ),
-                                    shape = RoundedCornerShape(100.dp)
-                                )
-                                .padding(horizontal = 15.dp, vertical = 5.5.dp),
-                            text = "$points PUNKTÓW",
-                            color = Color.White,
-                            fontSize = 8.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            letterSpacing = 0.2.sp,
-                            fontFamily = Montserrat
-                        )
-                        Spacer(modifier = Modifier.height(6.dp))
-                        Column {
+                        if (id != -1) {
                             Text(
-                                text = "Zadanie $id",
+                                modifier = Modifier
+                                    .border(
+                                        border = BorderStroke(
+                                            width = 1.2.dp,
+                                            color = BrightPurple
+                                        ),
+                                        shape = RoundedCornerShape(100.dp)
+                                    )
+                                    .padding(horizontal = 15.dp, vertical = 5.5.dp),
+                                text = "$points PUNKTÓW",
                                 color = Color.White,
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight(500),
-                                letterSpacing = 0.3.sp,
+                                fontSize = 8.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                letterSpacing = 0.2.sp,
                                 fontFamily = Montserrat
                             )
+                        }
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Column {
+                            if (id != -1) {
+                                Text(
+                                    text = "Zadanie $id",
+                                    color = Color.White,
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight(500),
+                                    letterSpacing = 0.3.sp,
+                                    fontFamily = Montserrat
+                                )
+                            }
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
                                 text = title,
@@ -156,16 +164,18 @@ fun TaskCard(
                             painter = painterResource(id = iconRes),
                             contentDescription = null
                         )
-                        Spacer(modifier = Modifier.height(6.dp))
-                        Text(
-                            modifier = Modifier.width(66.dp),
-                            text = iconLabel,
-                            textAlign = TextAlign.Center,
-                            color = Color.White,
-                            fontSize = 8.sp,
-                            fontWeight = FontWeight(300),
-                            fontFamily = Montserrat
-                        )
+                        if (id != -1) {
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Text(
+                                modifier = Modifier.width(66.dp),
+                                text = iconLabel,
+                                textAlign = TextAlign.Center,
+                                color = Color.White,
+                                fontSize = 8.sp,
+                                fontWeight = FontWeight(300),
+                                fontFamily = Montserrat
+                            )
+                        }
                     }
                 }
             }

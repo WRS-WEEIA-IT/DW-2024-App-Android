@@ -24,5 +24,6 @@ object MapImageSourceToDrawableRes {
         "taskphoto2" to R.drawable.taskphoto2,
         "taskphoto3" to R.drawable.taskphoto3,
         "taskphoto4" to R.drawable.taskphoto4,
+        "all_tasks_finished_background" to R.drawable.all_tasks_finished_background
     )
 }
