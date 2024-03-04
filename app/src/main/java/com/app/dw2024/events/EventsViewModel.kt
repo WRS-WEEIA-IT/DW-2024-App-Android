@@ -48,6 +48,10 @@ class EventsViewModel @Inject constructor(
             is EventsEvent.OnBottomModalSheetDismiss -> {
                 state = state.copy(showBottomSheet = false)
             }
+            is EventsEvent.OnMapLayerClick -> {
+                val isSelectedMapLayerBottom = state.isSelectedMapLayerBottom
+                state = state.copy(isSelectedMapLayerBottom = !isSelectedMapLayerBottom)
+            }
         }
     }
 }

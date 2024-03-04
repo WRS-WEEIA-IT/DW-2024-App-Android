@@ -5,6 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -42,6 +44,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -137,20 +140,68 @@ fun EventsScreen(
             },
             containerColor = DarkGrey,
         ) {
-            val painter = painterResource(id = R.drawable.polish_example_map)
-            val zoomState = rememberZoomState(contentSize = painter.intrinsicSize)
-            Image(
-                painter = painter,
-                contentDescription = null,
-                contentScale = ContentScale.Fit,
-                modifier = Modifier
-                    .padding(
-                        bottom = WindowInsets.navigationBars
-                            .asPaddingValues()
-                            .calculateBottomPadding()
+            Box(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                val painter = painterResource(id = if (viewModel.state.isSelectedMapLayerBottom) {
+                    R.drawable.map_ground_floor
+                } else {
+                    R.drawable.map_first_floor
+                })
+                val zoomState = rememberZoomState(contentSize = painter.intrinsicSize)
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(LocalConfiguration.current.screenHeightDp.dp / 1.33.toFloat())
+                        .padding(
+                            bottom = WindowInsets.navigationBars
+                                .asPaddingValues()
+                                .calculateBottomPadding()
+                        )
+                ) {
+                    Image(
+                        painter = painter,
+                        contentDescription = null,
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .zoomable(zoomState)
+                            .align(Alignment.Center)
                     )
-                    .zoomable(zoomState)
-            )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .align(Alignment.TopCenter),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = if (viewModel.state.isSelectedMapLayerBottom) {
+                            stringResource(id = R.string.ground_floor)
+                        } else {
+                            stringResource(id = R.string.first_floor)
+                        },
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    IconButton(onClick = {
+                        viewModel.onEvent(EventsEvent.OnMapLayerClick)
+                    }) {
+                        Icon(
+                            modifier = Modifier.size(24.dp),
+                            painter = painterResource(id = if (viewModel.state.isSelectedMapLayerBottom) {
+                                R.drawable.layers_bottom_filled
+                            } else {
+                                R.drawable.layers_top_filled
+                            }),
+                            contentDescription = null,
+                            tint = Color.White
+                        )
+                    }
+                }
+            }
         }
     }
 }

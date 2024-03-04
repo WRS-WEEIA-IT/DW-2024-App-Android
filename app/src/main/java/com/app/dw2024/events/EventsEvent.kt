@@ -10,4 +10,5 @@ sealed class EventsEvent {
     data class OnSignUpClick(val event: Event) : EventsEvent()
     data object OnBottomModalSheetShow : EventsEvent()
     data object OnBottomModalSheetDismiss : EventsEvent()
+    data object OnMapLayerClick : EventsEvent()
 }

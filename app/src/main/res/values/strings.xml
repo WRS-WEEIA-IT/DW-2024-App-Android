@@ -20,4 +20,6 @@
     <string name="required_camera_access">Required camera access</string>
     <string name="camera_access_is_required_to_scan_qr_code">Camera access is required to scan QR code. Please grant camera permission in app settings.</string>
     <string name="map">Map</string>
+    <string name="ground_floor">Ground floor</string>
+    <string name="first_floor">First floor</string>
 </resources>
