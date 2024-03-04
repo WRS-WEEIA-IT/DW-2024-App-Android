@@ -94,6 +94,7 @@ fun EventsScreen(
                 text = stringResource(id = R.string.upcoming_events),
                 color = Color.White,
                 fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
                 fontFamily = Montserrat
             )
             IconButton(onClick = {

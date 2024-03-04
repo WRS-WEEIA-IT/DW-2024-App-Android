@@ -7,6 +7,7 @@
     <string name="scan_qr_code_to_complete_task">Scan QR code to complete this task</string>
     <string name="available_tasks">Available tasks</string>
     <string name="you_gained_x_points">You gained %d points</string>
+    <string name="currently_you_have_x_points">Currently you have %d points</string>
     <string name="information">Information</string>
     <string name="app_id">APP ID: %s</string>
     <string name="hello_welcome_to_department_day_app">Hello! Welcome to the EEIA Department Day application!</string>

@@ -18,8 +18,8 @@ fun GainedPointsText(
     modifier: Modifier = Modifier,
     points: Int
 ) {
-    val firstPart = stringResource(id = R.string.you_gained_x_points).substringBefore("%d")
-    val secondPart = stringResource(id = R.string.you_gained_x_points).substringAfter("%d")
+    val firstPart = stringResource(id = R.string.currently_you_have_x_points).substringBefore("%d")
+    val secondPart = stringResource(id = R.string.currently_you_have_x_points).substringAfter("%d")
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -27,7 +27,7 @@ fun GainedPointsText(
             modifier = modifier,
             text = firstPart,
             color = Color.White,
-            fontSize = 18.sp,
+            fontSize = 12.sp,
             letterSpacing = 0.3.sp,
             fontFamily = Montserrat
         )
@@ -35,7 +35,7 @@ fun GainedPointsText(
             modifier = modifier,
             text = points.toString(),
             color = BrightPurple,
-            fontSize = 18.sp,
+            fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 0.3.sp,
             fontFamily = Montserrat
@@ -44,7 +44,7 @@ fun GainedPointsText(
             modifier = modifier,
             text = secondPart,
             color = Color.White,
-            fontSize = 18.sp,
+            fontSize = 12.sp,
             letterSpacing = 0.3.sp,
             fontFamily = Montserrat
         )
