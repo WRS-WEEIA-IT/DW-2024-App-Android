@@ -38,6 +38,7 @@ import com.app.dw2024.R
 import com.app.dw2024.ui.theme.BrightPurple
 import com.app.dw2024.ui.theme.CardPurpleGradient
 import com.app.dw2024.ui.theme.Montserrat
+import com.app.dw2024.util.MapImageSourceToDrawableRes
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -52,6 +53,7 @@ fun TaskCard(
     @DrawableRes finishedImage: Int,
     imageLabel: String,
     finishedImageLabel: String,
+    imageSrc: String,
     onClick: () -> Unit = {}
 ) {
     val iconRes = if (isFinished) finishedImage else qrCodeImage
@@ -67,9 +69,10 @@ fun TaskCard(
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
+            val imageResId = MapImageSourceToDrawableRes.taskImagesMap[imageSrc] ?: R.drawable.taskphoto4
             Image(
                 modifier = Modifier.fillMaxWidth(),
-                painter = painterResource(id = R.drawable.card_background_image),
+                painter = painterResource(id = imageResId),
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
@@ -189,5 +192,6 @@ fun TaskCardPreview() {
         finishedImage = R.drawable.check_image,
         imageLabel = "Zeskanuj kod\naby wykonać zadanie",
         finishedImageLabel = "Zadanie wykonane!",
+        imageSrc = "taskphoto1"
     )
 }

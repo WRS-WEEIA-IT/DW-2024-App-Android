@@ -18,4 +18,11 @@ object MapImageSourceToDrawableRes {
         "students" to R.drawable.students,
         "time" to R.drawable.time,
     )
+
+    val taskImagesMap = mapOf(
+        "taskphoto1" to R.drawable.taskphoto1,
+        "taskphoto2" to R.drawable.taskphoto2,
+        "taskphoto3" to R.drawable.taskphoto3,
+        "taskphoto4" to R.drawable.taskphoto4,
+    )
 }

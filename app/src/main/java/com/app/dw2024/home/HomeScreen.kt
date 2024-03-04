@@ -281,6 +281,7 @@ fun HomeScreen(
                                 finishedImage = R.drawable.check_image,
                                 imageLabel = stringResource(id = R.string.scan_qr_code_to_complete_task),
                                 finishedImageLabel = stringResource(id = R.string.task_completed),
+                                imageSrc = task.imageSource,
                                 onClick = {
 
                                 }
