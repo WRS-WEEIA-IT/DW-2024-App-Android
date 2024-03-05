@@ -90,7 +90,7 @@ fun TaskCard(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(Color.Transparent)
-                        .padding(end = 25.dp, top = 15.dp, start = 15.dp, bottom = 20.dp),
+                        .padding(end = 25.dp, top = 15.dp, start = 15.dp, bottom = 15.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
