@@ -138,15 +138,10 @@ class MainViewModel @Inject constructor(
         val completedTasksNumbers = sharedPreferences.getStringSet("completed_tasks", mutableSetOf())
             ?.map { it.toInt() }
             ?.toList()
-        Log.d("MainViewModel", "completedTasksNumbers: $completedTasksNumbers")
-        Log.d("MainViewModel", "tasks: $tasks")
         val completedTasks = tasks.filter { task ->
             completedTasksNumbers?.contains(task.taskId) ?: false
         }
-        Log.d("MainViewModel", "completedTasks: $completedTasks")
         viewModelScope.launch {
-            val sum = completedTasks.sumOf { it.points }
-            Log.d("MainViewModel", "sum: $sum")
             userRepository.updateUserPointsInFirestore(completedTasks.sumOf { it.points })
         }
     }
