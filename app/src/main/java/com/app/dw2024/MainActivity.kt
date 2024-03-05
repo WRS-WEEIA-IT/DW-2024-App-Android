@@ -106,13 +106,18 @@ class MainActivity : ComponentActivity() {
                     task.qrCode == result.contents
                 }
                 if (completedTask != null) {
+                    // completeTask does not update Firestore, just SharedPreferences
+                    // Firestore should be updated only if it returned true, so in showSuccessfulTaskCompletion
                     val res = mainViewModel.completeTask(completedTask)
                     if (res) {
-                        mainViewModel.showSuccessfulTaskCompletion(completedTask)
+                        // successfully completed task
+                        mainViewModel.onSuccessfulTaskCompletion(completedTask)
                     } else {
+                        // task was already done
                         mainViewModel.showTaskAlreadyFinished()
                     }
                 } else {
+                    // this is invalid QR code
                     mainViewModel.showNoSuchTaskExists()
                 }
             }

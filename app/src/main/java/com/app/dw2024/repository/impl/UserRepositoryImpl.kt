@@ -52,11 +52,10 @@ class UserRepositoryImpl @Inject constructor(
         return user
     }
 
-    override suspend fun incrementUserPoints(points: Int) {
-        val currentPoints = getUserInfo()?.points ?: 0
+    override suspend fun updateUserPointsInFirestore(allCollectedPoints: Int) {
         db.collection("users")
             .document(getUserId().toString())
-            .update("points", currentPoints + points)
+            .update("points", allCollectedPoints)
             .await()
         db.collection("users")
             .document(getUserId().toString())

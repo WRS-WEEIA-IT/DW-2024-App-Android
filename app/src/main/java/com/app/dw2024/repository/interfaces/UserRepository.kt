@@ -6,5 +6,5 @@ interface UserRepository {
     suspend fun createNewUser()
     fun getUserId(): Int
     suspend fun getUserInfo(): User?
-    suspend fun incrementUserPoints(points: Int)
+    suspend fun updateUserPointsInFirestore(allCollectedPoints: Int)
 }

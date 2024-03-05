@@ -1,6 +1,7 @@
 package com.app.dw2024
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -111,9 +112,6 @@ class MainViewModel @Inject constructor(
         val newCompletedTasks = currentlyCompletedTasks?.toMutableSet()
         newCompletedTasks?.add(task.taskId.toString())
         sharedPreferences.edit().putStringSet("completed_tasks", newCompletedTasks).apply()
-        viewModelScope.launch {
-            userRepository.incrementUserPoints(task.points)
-        }
         return true
     }
 
@@ -136,6 +134,23 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private fun updatePointsInFirestore() {
+        val completedTasksNumbers = sharedPreferences.getStringSet("completed_tasks", mutableSetOf())
+            ?.map { it.toInt() }
+            ?.toList()
+        Log.d("MainViewModel", "completedTasksNumbers: $completedTasksNumbers")
+        Log.d("MainViewModel", "tasks: $tasks")
+        val completedTasks = tasks.filter { task ->
+            completedTasksNumbers?.contains(task.taskId) ?: false
+        }
+        Log.d("MainViewModel", "completedTasks: $completedTasks")
+        viewModelScope.launch {
+            val sum = completedTasks.sumOf { it.points }
+            Log.d("MainViewModel", "sum: $sum")
+            userRepository.updateUserPointsInFirestore(completedTasks.sumOf { it.points })
+        }
+    }
+
     fun onDialogDismiss() {
         viewModelScope.launch {
             state = state.copy(isWinningDialogVisible = false, isLosingDialogVisible = false)
@@ -148,7 +163,8 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun showSuccessfulTaskCompletion(task: Task) {
+    fun onSuccessfulTaskCompletion(task: Task) {
+        updatePointsInFirestore()
         viewModelScope.launch {
             _mainChannel.send(MainEvent.OnSuccessfulTaskCompletion(task))
         }
