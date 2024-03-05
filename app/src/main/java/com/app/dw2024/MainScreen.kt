@@ -93,35 +93,35 @@ fun MainScreen(
     }
 
     Scaffold(
-        topBar = {
-            if (screensWithTopBar.contains(currentRoute)) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(DarkGrey)
-                        .padding(vertical = 16.dp, horizontal = 12.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_logo),
-                        contentDescription = "Logo",
-                        modifier = Modifier.height(76.dp)
-                    )
-                    if (currentRoute == BottomNavItem.Info.route) {
-                        IconButton(
-                            modifier = Modifier.align(Alignment.CenterEnd),
-                            onClick = { context.sendMail(arrayOf("dzien.weeia@samorzad.p.lodz.pl"), "") }
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Email,
-                                contentDescription = null,
-                                tint = Color.White
-                            )
-                        }
-                    }
-                }
-            }
-        },
+//        topBar = {
+//            if (screensWithTopBar.contains(currentRoute)) {
+//                Box(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .background(DarkGrey)
+//                        .padding(vertical = 16.dp, horizontal = 12.dp),
+//                    contentAlignment = Alignment.Center
+//                ) {
+//                    Image(
+//                        painter = painterResource(id = R.drawable.ic_logo),
+//                        contentDescription = "Logo",
+//                        modifier = Modifier.height(76.dp)
+//                    )
+//                    if (currentRoute == BottomNavItem.Info.route) {
+//                        IconButton(
+//                            modifier = Modifier.align(Alignment.CenterEnd),
+//                            onClick = { context.sendMail(arrayOf("dzien.weeia@samorzad.p.lodz.pl"), "") }
+//                        ) {
+//                            Icon(
+//                                imageVector = Icons.Outlined.Email,
+//                                contentDescription = null,
+//                                tint = Color.White
+//                            )
+//                        }
+//                    }
+//                }
+//            }
+//        },
         bottomBar = {
             BottomAppBar(
                 backgroundColor = DarkBlack,

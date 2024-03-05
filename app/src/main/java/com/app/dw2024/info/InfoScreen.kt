@@ -14,12 +14,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Email
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,6 +35,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.dw2024.MainViewModel
 import com.app.dw2024.R
+import com.app.dw2024.navigation.BottomNavItem
+import com.app.dw2024.sendMail
 import com.app.dw2024.ui.theme.DarkGrey
 import com.app.dw2024.ui.theme.Montserrat
 import com.app.dw2024.ui.theme.PurpleGradient
@@ -39,6 +47,8 @@ fun InfoScreen(
     viewModel: InfoViewModel = hiltViewModel(),
     mainViewModel: MainViewModel
 ) {
+    val context = LocalContext.current
+
     LaunchedEffect(true) {
         mainViewModel.checkIfUserWonAfterEventAndDisplayDialogMessage()
     }
@@ -47,107 +57,145 @@ fun InfoScreen(
         viewModel.refresh()
     }
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(DarkGrey)
-            .padding(start = 16.dp, end = 16.dp, top = 8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+    Scaffold(
+        topBar = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(DarkGrey)
+                    .padding(vertical = 16.dp, horizontal = 12.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_logo),
+                    contentDescription = "Logo",
+                    modifier = Modifier.height(76.dp)
+                )
+                IconButton(
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                    onClick = { context.sendMail(arrayOf("dzien.weeia@samorzad.p.lodz.pl"), "") }
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Email,
+                        contentDescription = null,
+                        tint = Color.White
+                    )
+                }
+            }
+        }
     ) {
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.CenterStart
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .background(DarkGrey)
+                .padding(it)
+                .padding(start = 16.dp, end = 16.dp, top = 8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.CenterStart
+            ) {
+                Text(
+                    text = stringResource(id = R.string.information),
+                    color = Color.White,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = Montserrat
+                )
+            }
+            Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = stringResource(id = R.string.information),
+                text = stringResource(id = R.string.user_id, viewModel.state.userId ?: "0"),
                 color = Color.White,
-                fontSize = 18.sp,
+                fontSize = 14.sp,
+                fontFamily = Montserrat
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = stringResource(id = R.string.hi_welcome_in_dw_app),
+                color = Color.White,
+                fontSize = 16.sp,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Medium,
+                fontFamily = Montserrat
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = stringResource(id = R.string.rules_are_simple),
+                color = Color.White,
+                fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
                 fontFamily = Montserrat
             )
-        }
-        Spacer(modifier = Modifier.height(12.dp))
-        Text(
-            text = stringResource(id = R.string.user_id, viewModel.state.userId ?: "0"),
-            color = Color.White,
-            fontSize = 14.sp,
-            fontFamily = Montserrat
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = stringResource(id = R.string.hi_welcome_in_dw_app),
-            color = Color.White,
-            fontSize = 16.sp,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Medium,
-            fontFamily = Montserrat
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = stringResource(id = R.string.rules_are_simple),
-            color = Color.White,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.SemiBold,
-            fontFamily = Montserrat
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = stringResource(id = R.string.complete_tasks_earn_points_claim_rewards),
-            color = Color.White,
-            fontSize = 12.sp,
-            textAlign = TextAlign.Center,
-            fontFamily = Montserrat
-        )
-        Spacer(modifier = Modifier.height(6.dp))
-        Text(
-            text = stringResource(id = R.string.we_will_inform_students),
-            color = Color.White,
-            fontSize = 12.sp,
-            textAlign = TextAlign.Center,
-            fontFamily = Montserrat
-        )
-        Spacer(modifier = Modifier.height(6.dp))
-        Text(
-            text = stringResource(id = R.string.wrs_weeia_is_the_only_sponsor_of_any_rewards),
-            color = Color.Red,
-            fontSize = 12.sp,
-            textAlign = TextAlign.Center,
-            fontFamily = Montserrat
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        Text(
-            modifier = Modifier
-                .border(
-                    border = BorderStroke(
-                        width = 3.dp,
-                        brush = PurpleGradient
-                    ),
-                    shape = RoundedCornerShape(100.dp)
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = stringResource(id = R.string.complete_tasks_earn_points_claim_rewards),
+                color = Color.White,
+                fontSize = 12.sp,
+                textAlign = TextAlign.Center,
+                fontFamily = Montserrat
+            )
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = stringResource(id = R.string.we_will_inform_students),
+                color = Color.White,
+                fontSize = 12.sp,
+                textAlign = TextAlign.Center,
+                fontFamily = Montserrat
+            )
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = stringResource(id = R.string.wrs_weeia_is_the_only_sponsor_of_any_rewards),
+                color = Color.Red,
+                fontSize = 12.sp,
+                textAlign = TextAlign.Center,
+                fontFamily = Montserrat
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                modifier = Modifier
+                    .border(
+                        border = BorderStroke(
+                            width = 3.dp,
+                            brush = PurpleGradient
+                        ),
+                        shape = RoundedCornerShape(100.dp)
+                    )
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                text = stringResource(
+                    id = R.string.you_earned_x_points,
+                    mainViewModel.state.collectedPoints
+                ),
+                color = Color.White,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 0.2.sp,
+                fontFamily = Montserrat
+            )
+            Spacer(modifier = Modifier.height(28.dp))
+            Text(
+                text = stringResource(id = R.string.organizers),
+                color = Color.White,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                fontFamily = Montserrat
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.weeia_logo),
+                    contentDescription = null
                 )
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            text = stringResource(id = R.string.you_earned_x_points, mainViewModel.state.collectedPoints),
-            color = Color.White,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.SemiBold,
-            letterSpacing = 0.2.sp,
-            fontFamily = Montserrat
-        )
-        Spacer(modifier = Modifier.height(28.dp))
-        Text(
-            text = stringResource(id = R.string.organizers),
-            color = Color.White,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.SemiBold,
-            fontFamily = Montserrat
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(painter = painterResource(id = R.drawable.weeia_logo), contentDescription = null)
-            Image(painter = painterResource(id = R.drawable.wrs_weeia_logo), contentDescription = null)
+                Image(
+                    painter = painterResource(id = R.drawable.wrs_weeia_logo),
+                    contentDescription = null
+                )
+            }
         }
     }
 }

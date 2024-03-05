@@ -21,8 +21,11 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,6 +44,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.dw2024.MainViewModel
 import com.app.dw2024.R
 import com.app.dw2024.components.EventCard
+import com.app.dw2024.sendMail
 import com.app.dw2024.util.Constants
 import com.app.dw2024.ui.theme.DarkGrey
 import com.app.dw2024.ui.theme.Montserrat
@@ -71,67 +75,95 @@ fun EventsScreen(
         mainViewModel.checkIfUserWonAfterEventAndDisplayDialogMessage()
     }
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(DarkGrey)
-            .padding(start = 16.dp, end = 16.dp, top = 8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(id = R.string.upcoming_events),
-                color = Color.White,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = Montserrat
-            )
-            IconButton(onClick = {
-                viewModel.onEvent(EventsEvent.OnBottomModalSheetShow)
-            }) {
-                Icon(
-                    modifier = Modifier.size(24.dp),
-                    painter = painterResource(id = R.drawable.ic_map),
-                    contentDescription = stringResource(id = R.string.map),
-                    tint = Color.White
+    Scaffold(
+        topBar = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(DarkGrey)
+                    .padding(vertical = 16.dp, horizontal = 12.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_logo),
+                    contentDescription = "Logo",
+                    modifier = Modifier.height(76.dp)
                 )
             }
         }
-        val currentTimeInSeconds = System.currentTimeMillis() / 1000
-        val events = listOf(mainViewModel.state.lectures, mainViewModel.state.workshops)
-            .flatten()
-            .filter { currentTimeInSeconds < it.timeEnd.seconds }
-            .sortedBy { it.timeStart }
-        LazyColumn(
-            content = {
-                items(events) { event ->
-                    val startTimeInstant = Instant.ofEpochSecond(event.timeStart.seconds, event.timeStart.nanoseconds.toLong())
-                    val endTimeInstant = Instant.ofEpochSecond(event.timeEnd.seconds, event.timeEnd.nanoseconds.toLong())
-                    val startTime = LocalDateTime.ofInstant(startTimeInstant, ZoneId.systemDefault())
-                    val endTime = LocalDateTime.ofInstant(endTimeInstant, ZoneId.systemDefault())
-                    val date = startTime.format(dateFormatter)
-                    val time = "${startTime.format(timeFormatter)} - ${endTime.format(timeFormatter)}"
-                    EventCard(
-                        date = date,
-                        time = time,
-                        eventType = event.type,
-                        eventTitle = event.title,
-                        eventPlace = event.room,
-                        eventPartner = event.partner,
-                        onClick = {
-                            uriHandler.openUri(Constants.FORMS_URL)
-                        },
-                        imageSrc = event.imageSrc
+    ) {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .background(DarkGrey)
+                .padding(it)
+                .padding(start = 16.dp, end = 16.dp, top = 8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(id = R.string.upcoming_events),
+                    color = Color.White,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = Montserrat
+                )
+                IconButton(onClick = {
+                    viewModel.onEvent(EventsEvent.OnBottomModalSheetShow)
+                }) {
+                    Icon(
+                        modifier = Modifier.size(24.dp),
+                        painter = painterResource(id = R.drawable.ic_map),
+                        contentDescription = stringResource(id = R.string.map),
+                        tint = Color.White
                     )
                 }
-                item { Spacer(modifier = Modifier.height(1.dp)) }
-            },
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-        )
+            }
+            val currentTimeInSeconds = System.currentTimeMillis() / 1000
+            val events = listOf(mainViewModel.state.lectures, mainViewModel.state.workshops)
+                .flatten()
+                .filter { currentTimeInSeconds < it.timeEnd.seconds }
+                .sortedBy { it.timeStart }
+            LazyColumn(
+                content = {
+                    items(events) { event ->
+                        val startTimeInstant = Instant.ofEpochSecond(
+                            event.timeStart.seconds,
+                            event.timeStart.nanoseconds.toLong()
+                        )
+                        val endTimeInstant = Instant.ofEpochSecond(
+                            event.timeEnd.seconds,
+                            event.timeEnd.nanoseconds.toLong()
+                        )
+                        val startTime =
+                            LocalDateTime.ofInstant(startTimeInstant, ZoneId.systemDefault())
+                        val endTime =
+                            LocalDateTime.ofInstant(endTimeInstant, ZoneId.systemDefault())
+                        val date = startTime.format(dateFormatter)
+                        val time =
+                            "${startTime.format(timeFormatter)} - ${endTime.format(timeFormatter)}"
+                        EventCard(
+                            date = date,
+                            time = time,
+                            eventType = event.type,
+                            eventTitle = event.title,
+                            eventPlace = event.room,
+                            eventPartner = event.partner,
+                            onClick = {
+                                uriHandler.openUri(Constants.FORMS_URL)
+                            },
+                            imageSrc = event.imageSrc
+                        )
+                    }
+                    item { Spacer(modifier = Modifier.height(1.dp)) }
+                },
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+            )
+        }
     }
 
     if (viewModel.state.showBottomSheet) {
