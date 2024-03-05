@@ -203,14 +203,20 @@ fun HomeScreen(
                         },
                         imageSrc = event.imageSrc
                     )
-                } else {
+                } else if (mainViewModel.state.lectures.isNotEmpty()) {
                     Box(
                         modifier = Modifier
                             .height(160.dp)
                             .fillMaxWidth(),
                         contentAlignment = Alignment.Center
                     ) {
-
+                        Text(
+                            text = stringResource(id = R.string.no_upcoming_events),
+                            color = Color.White,
+                            fontSize = 12.sp,
+                            fontFamily = Montserrat,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                 }
             }

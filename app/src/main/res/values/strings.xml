@@ -39,4 +39,5 @@
     <string name="you_lost">You lost...</string>
     <string name="try_again_next_time">Try again next time!</string>
     <string name="room_x">Room %s</string>
+    <string name="no_upcoming_events">No upcoming events</string>
 </resources>
