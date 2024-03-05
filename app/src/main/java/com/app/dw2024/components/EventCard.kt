@@ -48,6 +48,7 @@ fun EventCard(
     eventType: String,
     eventTitle: String,
     eventPlace: String,
+    eventPartner: String,
     imageSrc: String,
     onClick: () -> Unit = {}
 ) {
@@ -103,8 +104,9 @@ fun EventCard(
                             maxLines = 5
                         )
                         Spacer(modifier = Modifier.height(4.dp))
+                        val partnerAndRoomText = "$eventPartner, " + stringResource(R.string.room_x, eventPlace)
                         Text(
-                            text = eventPlace,
+                            text = partnerAndRoomText,
                             color = Color.White,
                             fontSize = 10.sp,
                             fontWeight = FontWeight(300),
@@ -165,6 +167,7 @@ fun PreviewEventCard() {
         eventType = "Szkolenie",
         eventTitle = "QA - Automatyzacja testów",
         eventPlace = "Sala E104",
+        eventPartner = "niceguys",
         imageSrc = "programming",
     )
 }

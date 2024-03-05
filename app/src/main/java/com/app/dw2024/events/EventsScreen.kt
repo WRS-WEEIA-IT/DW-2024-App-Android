@@ -121,6 +121,7 @@ fun EventsScreen(
                         eventType = event.type,
                         eventTitle = event.title,
                         eventPlace = event.room,
+                        eventPartner = event.partner,
                         onClick = {
                             uriHandler.openUri(Constants.FORMS_URL)
                         },

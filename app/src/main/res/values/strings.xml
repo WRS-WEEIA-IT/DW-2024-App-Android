@@ -38,4 +38,5 @@
     <string name="go_to_wrs_office_to_collect_your_prize">Go to the WRS office to collect your prize!</string>
     <string name="you_lost">You lost...</string>
     <string name="try_again_next_time">Try again next time!</string>
+    <string name="room_x">Room %s</string>
 </resources>
