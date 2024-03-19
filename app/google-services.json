@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "826660190047",
+    "project_id": "dw-2024",
+    "storage_bucket": "dw-2024.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826660190047:android:650443e4c62f162965e8ea",
+        "android_client_info": {
+          "package_name": "com.app.dw2024"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_3NDC-a4azNcE2nXPJ6QnvNugI_LyNTc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
